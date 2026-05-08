@@ -658,8 +658,29 @@
       transition: 0.3s ease;
     }
 
+    .coverage-card[data-map-q] { cursor: pointer; }
     .coverage-card:hover { transform: translateY(-8px); border-color: rgba(56,189,248,0.4); }
     .coverage-card:hover::before { opacity: 1; }
+    .coverage-card.map-active {
+      border-color: rgba(56,189,248,0.85) !important;
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.22), 0 10px 36px rgba(56,189,248,0.18);
+      transform: translateY(-8px);
+    }
+    .card-map-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #7dd3fc;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .coverage-card:hover .card-map-hint { opacity: 1; }
+    .coverage-card.map-active .card-map-hint { opacity: 1; color: #38bdf8; }
 
     .coverage-icon {
       width: 60px;
@@ -2090,37 +2111,42 @@
         <p>Fast, affordable internet across these key locations</p>
       </div>
       <div class="coverage-cards">
-        <div class="coverage-card img-card cbd-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
+        <div class="coverage-card img-card cbd-card" data-map-q="Kisii+CBD,Kisii,Kenya" data-map-label="Kisii CBD" data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
           <div class="coverage-icon"><i class="fa-solid fa-city"></i></div>
           <h4>Kisii CBD</h4>
           <p>Covering businesses, shops and offices in the heart of Kisii town centre.</p>
+          <span class="card-map-hint"><i class="fa-solid fa-map-location-dot"></i> View on map</span>
         </div>
-        <div class="coverage-card img-card mwembe-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+        <div class="coverage-card img-card mwembe-card" data-map-q="Mwembe,Kisii,Kenya" data-map-label="Mwembe" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
           <div class="coverage-icon"><i class="fa-solid fa-house-signal"></i></div>
           <h4>Mwembe</h4>
           <p>Reliable home fibre and hotspot WiFi solutions for the Mwembe residential area.</p>
+          <span class="card-map-hint"><i class="fa-solid fa-map-location-dot"></i> View on map</span>
         </div>
-        <div class="coverage-card img-card campus-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+        <div class="coverage-card img-card campus-card" data-map-q="Kisii+University,Kisii,Kenya" data-map-label="Kisii Campus" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
           <div class="coverage-icon"><i class="fa-solid fa-graduation-cap"></i></div>
           <h4>Kisii Campus</h4>
           <p>High-speed internet built for students — streaming, research and online classes.</p>
+          <span class="card-map-hint"><i class="fa-solid fa-map-location-dot"></i> View on map</span>
         </div>
-        <div class="coverage-card img-card nyachwa-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+        <div class="coverage-card img-card nyachwa-card" data-map-q="Nyachwa,Kisii,Kenya" data-map-label="Nyachwa" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
           <div class="coverage-icon"><i class="fa-solid fa-map-pin"></i></div>
           <h4>Nyachwa</h4>
           <p>Fast home internet and WiFi hotspots serving the Nyachwa residential neighbourhood.</p>
+          <span class="card-map-hint"><i class="fa-solid fa-map-location-dot"></i> View on map</span>
         </div>
-        <div class="coverage-card img-card menyinkwa-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
+        <div class="coverage-card img-card menyinkwa-card" data-map-q="Menyinkwa,Kisii,Kenya" data-map-label="Menyinkwa" data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
           <div class="coverage-icon"><i class="fa-solid fa-wifi"></i></div>
           <h4>Menyinkwa</h4>
           <p>Quality broadband connectivity for homes and small businesses in Menyinkwa.</p>
+          <span class="card-map-hint"><i class="fa-solid fa-map-location-dot"></i> View on map</span>
         </div>
       </div>
 
       <!-- Coverage Map -->
       <div class="coverage-map" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
         <div class="coverage-map-label">
-          <i class="fa-solid fa-map-location-dot"></i> Our Coverage Map — Kisii
+          <i class="fa-solid fa-map-location-dot"></i> <span id="mapAreaLabel">Our Coverage Map — Kisii</span>
         </div>
         <iframe
           src="https://maps.google.com/maps?q=Kisii+Town,Kenya&t=&z=14&ie=UTF8&iwloc=&output=embed"
@@ -2510,6 +2536,29 @@
       } finally {
         stkBtn.disabled = false;
       }
+    });
+
+    // ── Coverage cards → live map ──
+    const mapFrame     = document.querySelector('.coverage-map iframe');
+    const mapAreaLabel = document.getElementById('mapAreaLabel');
+    const mapSection   = document.querySelector('.coverage-map');
+
+    document.querySelectorAll('.coverage-card[data-map-q]').forEach(card => {
+      card.addEventListener('click', () => {
+        const q     = card.dataset.mapQ;
+        const label = card.dataset.mapLabel;
+
+        // Swap map to selected area
+        mapFrame.src = `https://maps.google.com/maps?q=${q}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+        mapAreaLabel.textContent = label + ' — Live Map';
+
+        // Highlight active card
+        document.querySelectorAll('.coverage-card').forEach(c => c.classList.remove('map-active'));
+        card.classList.add('map-active');
+
+        // Scroll smoothly to map
+        mapSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     });
 
     // ── WhatsApp form ──
