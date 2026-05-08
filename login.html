@@ -1,0 +1,2210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mozalife Internet Solutions</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #001f3f;
+      --navy-dark: #001427;
+      --blue: #38bdf8;
+      --orange: #38bdf8;
+      --orange-dark: #0ea5e9;
+      --white: #ffffff;
+      --light: #f7f9fc;
+      --text: #122033;
+      --muted: #667085;
+      --border: #e6ebf2;
+      --shadow: 0 18px 40px rgba(0, 31, 63, 0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Lato", sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Font roles */
+    h1, h2, h3, h4,
+    .section-title,
+    .hero-card strong,
+    .speed,
+    .stat-item h3 { font-family: "Playfair Display", serif; }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 28px;
+      border-radius: 999px;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 12px 28px rgba(56, 189, 248, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.55s ease;
+    }
+
+    .btn:hover::before { transform: translateX(100%); }
+    .btn:hover { background: var(--orange-dark); transform: translateY(-3px); box-shadow: 0 18px 36px rgba(56, 189, 248, 0.45); }
+
+    .btn-outline {
+      background: var(--white);
+      color: var(--navy);
+      border: 1.5px solid var(--border);
+      box-shadow: none;
+    }
+    .btn-outline::before { display: none; }
+    .btn-outline:hover { background: var(--navy); color: var(--white); transform: translateY(-3px); }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.12;
+      color: var(--navy-dark);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .orange-line {
+      width: 94px;
+      height: 5px;
+      background: linear-gradient(90deg, var(--orange), #7dd3fc);
+      border-radius: 999px;
+      margin-bottom: 23px;
+    }
+
+    .small-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--orange);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 200;
+      padding: 20px 0;
+      transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    header.scrolled {
+      background: rgba(0, 20, 39, 0.95);
+      backdrop-filter: blur(14px);
+      padding: 14px 0;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.25);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--white);
+      font-weight: 800;
+      font-size: 19px;
+      letter-spacing: 0.2px;
+    }
+
+    .logo-img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      border-radius: 14px;
+      background: #ffffff;
+      padding: 5px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+      color: rgba(255,255,255,0.9);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--orange);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: var(--white); }
+
+    .menu-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.15);
+      color: var(--white);
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background:
+        linear-gradient(120deg, rgba(0,20,39,0.92) 0%, rgba(0,20,39,0.55) 55%, rgba(0,20,39,0.80) 100%),
+        url("images/hero.jpg") center/cover no-repeat;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      will-change: background-position;
+    }
+
+    /* Animated blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+
+    .blob-1 {
+      width: 500px;
+      height: 500px;
+      background: rgba(56, 189, 248, 0.18);
+      top: -120px;
+      right: -80px;
+      animation: blobFloat 8s ease-in-out infinite;
+    }
+
+    .blob-2 {
+      width: 350px;
+      height: 350px;
+      background: rgba(0, 198, 255, 0.12);
+      bottom: -80px;
+      right: 25%;
+      animation: blobFloat 11s ease-in-out infinite reverse;
+    }
+
+    .blob-3 {
+      width: 250px;
+      height: 250px;
+      background: rgba(56, 189, 248, 0.10);
+      top: 30%;
+      left: -60px;
+      animation: blobFloat 9s ease-in-out infinite 2s;
+    }
+
+    @keyframes blobFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.97); }
+    }
+
+    /* Particle dots */
+    .hero-particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      animation: particleDrift linear infinite;
+    }
+
+    @keyframes particleDrift {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+      padding-top: 100px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(6px);
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 22px;
+      animation: fadeSlideDown 0.7s ease forwards 0.1s;
+      opacity: 0;
+    }
+
+    .hero-eyebrow span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #7dd3fc;
+      display: inline-block;
+      animation: pulse 1.5s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 198, 255, 0.6); }
+      50% { box-shadow: 0 0 0 6px rgba(0, 198, 255, 0); }
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 6.5vw, 82px);
+      line-height: 0.97;
+      font-weight: 800;
+      letter-spacing: -2.5px;
+      margin-bottom: 22px;
+      overflow: hidden;
+    }
+
+    .hero-word {
+      display: inline-block;
+      animation: wordReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      opacity: 0;
+      transform: translateY(60px);
+    }
+
+    .hero-word:nth-child(1) { animation-delay: 0.25s; }
+    .hero-word:nth-child(2) { animation-delay: 0.38s; }
+    .hero-word:nth-child(3) { animation-delay: 0.51s; }
+    .hero-word:nth-child(4) { animation-delay: 0.64s; }
+    .hero-word:nth-child(5) { animation-delay: 0.77s; }
+
+    @keyframes wordReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero .orange-line {
+      width: 120px;
+      height: 6px;
+      margin-bottom: 26px;
+      animation: lineExpand 0.6s ease forwards 0.95s;
+      opacity: 0;
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    @keyframes lineExpand {
+      to { opacity: 1; transform: scaleX(1); }
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.85);
+      max-width: 520px;
+      font-size: 16px;
+      margin-bottom: 32px;
+      animation: fadeSlideDown 0.7s ease forwards 1.1s;
+      opacity: 0;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fadeSlideDown 0.7s ease forwards 1.25s;
+      opacity: 0;
+    }
+
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.55);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      animation: fadeSlideDown 0.8s ease forwards 1.8s;
+      opacity: 0;
+      z-index: 2;
+    }
+
+    .scroll-mouse {
+      width: 22px;
+      height: 36px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      padding-top: 6px;
+    }
+
+    .scroll-dot {
+      width: 4px;
+      height: 8px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 999px;
+      animation: scrollBounce 1.8s ease infinite;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(10px); opacity: 0.3; }
+    }
+
+    /* Floating stats card in hero */
+    .hero-card {
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 280px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(14px);
+      border-radius: 28px;
+      padding: 30px;
+      color: var(--white);
+      animation: cardFloat 6s ease-in-out infinite, fadeSlideDown 0.8s ease forwards 1.5s;
+      opacity: 0;
+      z-index: 2;
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(-50%) translateY(0px); }
+      50% { transform: translateY(-50%) translateY(-14px); }
+    }
+
+    .hero-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--blue), #7dd3fc);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.4);
+    }
+
+    .hero-card strong {
+      display: block;
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .hero-card span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .hero-card-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 16px 0;
+    }
+
+    .hero-card-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 10px;
+    }
+
+    .hero-card-row:last-child { margin-bottom: 0; }
+
+    .hero-card-row i {
+      color: #7dd3fc;
+      width: 16px;
+    }
+
+    /* Hero location pills */
+    .hero-locations {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      animation: fadeSlideDown 0.7s ease forwards 1.4s;
+      opacity: 0;
+    }
+
+    .hero-locations i {
+      color: #7dd3fc;
+      font-size: 14px;
+    }
+
+    .loc-pill {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(6px);
+      color: rgba(255,255,255,0.9);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+
+    .loc-pill:hover {
+      background: rgba(56,189,248,0.25);
+      border-color: rgba(56,189,248,0.5);
+      color: #fff;
+    }
+
+    .loc-dot {
+      color: rgba(255,255,255,0.35);
+      font-size: 18px;
+    }
+
+    /* Coverage strip */
+    .coverage-strip {
+      background: linear-gradient(135deg, #001427, #002060);
+      padding: 60px 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .coverage-strip::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .coverage-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .coverage-inner h3 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(22px, 3vw, 32px);
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .coverage-inner p {
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+    }
+
+    .coverage-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .coverage-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 36px 28px;
+      text-align: center;
+      color: #fff;
+      transition: 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coverage-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(56,189,248,0.1), transparent);
+      opacity: 0;
+      transition: 0.3s ease;
+    }
+
+    .coverage-card:hover { transform: translateY(-8px); border-color: rgba(56,189,248,0.4); }
+    .coverage-card:hover::before { opacity: 1; }
+
+    .coverage-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(56,189,248,0.25), rgba(125,211,252,0.1));
+      border: 1px solid rgba(56,189,248,0.3);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px;
+      font-size: 24px;
+      color: #7dd3fc;
+      transition: 0.3s ease;
+    }
+
+    .campus-card {
+      background-image: url("images/cta.jpg");
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .campus-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      background: linear-gradient(160deg, rgba(0,20,55,0.82), rgba(0,109,180,0.6));
+      z-index: 0;
+    }
+
+    .campus-card .coverage-icon,
+    .campus-card h4,
+    .campus-card p { position: relative; z-index: 1; }
+
+    .campus-card::before { display: none; }
+
+    .coverage-card:hover .coverage-icon {
+      background: linear-gradient(135deg, rgba(56,189,248,0.4), rgba(56,189,248,0.2));
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    .coverage-card h4 {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .coverage-card p {
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 780px) {
+      .coverage-cards { grid-template-columns: 1fr; }
+    }
+
+    /* ── Stats ── */
+    .stats-wrap {
+      position: relative;
+      z-index: 5;
+      padding: 0 0 0;
+      margin-top: -70px;
+    }
+
+    .stats-box {
+      margin-left: auto;
+      width: min(880px, 100%);
+      background: linear-gradient(135deg, #001427 0%, #002060 100%);
+      color: var(--white);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      padding: 44px 60px;
+      border-radius: 130px 0 130px 0;
+      border-bottom: 4px solid var(--orange);
+      box-shadow: 0 30px 80px rgba(0, 31, 63, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stats-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E") repeat;
+    }
+
+    .stat-item {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-item:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -11px;
+      top: 15%;
+      width: 1px;
+      height: 70%;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .stat-item i {
+      font-size: 30px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #38bdf8, #7dd3fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-item h3 {
+      font-size: clamp(32px, 4vw, 50px);
+      line-height: 1;
+      font-weight: 700;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #ffffff, #c5d8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-item span {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ── About ── */
+    .about {
+      padding: 140px 0 100px;
+      overflow: hidden;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-image-wrap {
+      position: relative;
+    }
+
+    .about-image {
+      position: relative;
+      border-radius: 100px 0 100px 0;
+      overflow: hidden;
+      min-height: 460px;
+      background: url("images/about.jpg") center/cover no-repeat;
+      box-shadow: 0 30px 80px rgba(0, 31, 63, 0.18);
+      transition: transform 0.1s linear;
+    }
+
+    .about-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), transparent);
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -24px;
+      right: -24px;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), #7dd3fc);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 800;
+      font-size: 13px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(56, 189, 248, 0.4);
+      animation: blobFloat 5s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    .about-badge strong {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 26px;
+      max-width: 570px;
+    }
+
+    .about-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 13px;
+      margin-bottom: 32px;
+    }
+
+    .about-list div {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: var(--light);
+      border: 1px solid var(--border);
+      transition: 0.25s ease;
+    }
+
+    .about-list div:hover {
+      background: #e8f0ff;
+      border-color: rgba(56, 189, 248, 0.25);
+      transform: translateX(4px);
+    }
+
+    .about-list i { color: var(--orange); }
+
+    /* ── Services ── */
+    .services {
+      position: relative;
+      padding: 110px 0 130px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(56,189,248,0.07), transparent 30%),
+        radial-gradient(circle at 82% 16%, rgba(0, 198, 255, 0.07), transparent 28%),
+        var(--light);
+      overflow: hidden;
+    }
+
+    .services::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(0,31,63,0.09) 1px, transparent 1px);
+      background-size: 22px 22px;
+      opacity: 0.3;
+    }
+
+    .services-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr 1fr;
+      grid-template-rows: repeat(2, minmax(210px, auto));
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .services-title-card {
+      grid-row: 1 / span 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 20px;
+    }
+
+    .service-card {
+      position: relative;
+      background: var(--white);
+      padding: 36px 34px;
+      min-height: 220px;
+      border-radius: 0 72px 0 0;
+      box-shadow: 0 10px 40px rgba(0,31,63,0.09);
+      border: 1px solid rgba(230,235,242,0.8);
+      transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(56,189,248,0.04), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .service-card:hover::before { opacity: 1; }
+
+    .service-card::after {
+      content: "";
+      position: absolute;
+      right: -50px;
+      bottom: -50px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: rgba(56,189,248,0.05);
+      transition: 0.35s ease;
+    }
+
+    .service-card:hover { transform: translateY(-10px); box-shadow: 0 24px 60px rgba(56,189,248,0.14); }
+    .service-card:hover::after { transform: scale(1.3); }
+
+    .service-card.highlight {
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      color: var(--white);
+      border-radius: 0 0 72px 0;
+      align-self: center;
+      box-shadow: 0 20px 60px rgba(56, 189, 248, 0.4);
+      border: none;
+    }
+
+    .service-card.highlight::before { display: none; }
+    .service-card.highlight::after { background: rgba(255,255,255,0.12); }
+
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: rgba(56,189,248,0.1);
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      transition: 0.3s ease;
+    }
+
+    .service-card:hover .service-icon { background: rgba(56,189,248,0.18); transform: scale(1.1) rotate(-5deg); }
+
+    .service-card i {
+      font-size: 26px;
+      color: var(--orange);
+    }
+
+    .service-card.highlight .service-icon {
+      background: rgba(255,255,255,0.18);
+    }
+
+    .service-card.highlight i,
+    .service-card.highlight p { color: rgba(255,255,255,0.9); }
+
+    .service-card.highlight h3 { color: var(--white); }
+
+    .service-card h3 {
+      font-size: 19px;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .service-card p { color: var(--muted); font-size: 14px; }
+
+    .card-1 { grid-column: 2; grid-row: 1; }
+    .card-2 { grid-column: 3; grid-row: 1; transform: translateY(-30px); }
+    .card-3 { grid-column: 1; grid-row: 2; }
+    .card-4 { grid-column: 2; grid-row: 2; }
+    .card-5 { grid-column: 3; grid-row: 2; transform: translateY(-25px); }
+
+    /* ── Packages ── */
+    .packages {
+      padding: 110px 0;
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .center-title {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 60px;
+    }
+
+    .center-title .orange-line { margin-left: auto; margin-right: auto; }
+    .center-title p { color: var(--muted); }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      align-items: end;
+    }
+
+    .package-card {
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 32px 26px;
+      background: var(--white);
+      box-shadow: 0 12px 32px rgba(0,31,63,0.07);
+      transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .package-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange), #7dd3fc);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .package-card:hover::before { transform: scaleX(1); }
+    .package-card:hover { transform: translateY(-10px); box-shadow: 0 24px 60px rgba(56,189,248,0.13); }
+
+    .package-card.popular {
+      background: linear-gradient(160deg, #001427 0%, #002060 100%);
+      color: var(--white);
+      transform: translateY(-16px);
+      box-shadow: 0 30px 80px rgba(56,189,248,0.35);
+      border: none;
+    }
+
+    .package-card.popular::before { transform: scaleX(1); }
+    .package-card.popular:hover { transform: translateY(-24px); }
+
+    .badge {
+      position: absolute;
+      top: 18px;
+      right: -38px;
+      background: linear-gradient(90deg, var(--orange), #7dd3fc);
+      color: var(--white);
+      padding: 8px 46px;
+      font-size: 11px;
+      font-weight: 800;
+      transform: rotate(38deg);
+    }
+
+    .package-card h3 { font-size: 20px; margin-bottom: 10px; }
+
+    .speed {
+      font-size: 46px;
+      line-height: 1;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--orange), #7dd3fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .price { font-size: 24px; font-weight: 800; margin-bottom: 22px; }
+    .price span { color: var(--muted); font-size: 13px; font-weight: 500; }
+    .package-card.popular .price span { color: rgba(255,255,255,0.6); }
+
+    .features {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 26px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .package-card.popular .features { color: rgba(255,255,255,0.8); }
+
+    .features li { display: flex; align-items: center; gap: 10px; }
+    .features i { color: var(--orange); }
+
+    /* ── Office ── */
+    .office-section {
+      padding: 120px 0 100px;
+      background: var(--light);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .office-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(0,31,63,0.07) 1px, transparent 1px);
+      background-size: 22px 22px;
+      opacity: 0.3;
+    }
+
+    .office-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .office-text p {
+      color: var(--muted);
+      margin-bottom: 26px;
+      max-width: 570px;
+    }
+
+    .office-img {
+      background-image: url("images/office.jpg") !important;
+      background-position: center !important;
+      background-size: cover !important;
+      border-radius: 0 100px 0 100px !important;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      padding: 90px 0;
+      background:
+        linear-gradient(120deg, rgba(0,20,39,0.96), rgba(0,32,96,0.92)),
+        url("images/cta.jpg") center/cover no-repeat fixed;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: rgba(56,189,248,0.12);
+      filter: blur(100px);
+      right: -100px;
+      top: -100px;
+    }
+
+    .cta-box {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta h2 { font-size: clamp(30px, 4vw, 50px); line-height: 1.12; margin-bottom: 15px; }
+    .cta p { color: rgba(255,255,255,0.78); max-width: 680px; }
+
+    .cta-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Contact ── */
+    .contact { padding: 110px 0; background: var(--white); overflow: hidden; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .contact-info {
+      background: linear-gradient(160deg, #001427 0%, #002060 100%);
+      color: var(--white);
+      border-radius: 34px;
+      padding: 44px;
+      box-shadow: 0 30px 80px rgba(0,31,63,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-info::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(56,189,248,0.15);
+      filter: blur(60px);
+      bottom: -80px;
+      right: -80px;
+    }
+
+    .contact-info p { color: rgba(255,255,255,0.78); margin-bottom: 26px; position: relative; z-index: 1; }
+
+    .contact-item {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      padding: 17px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-item i {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(56,189,248,0.3), rgba(0,198,255,0.2));
+      color: #7dd3fc;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+
+    .contact-form {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      padding: 42px;
+    }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    label { font-size: 13px; font-weight: 700; color: var(--navy-dark); }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      outline: none;
+      border-radius: 16px;
+      padding: 15px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      background: var(--white);
+      color: var(--text);
+      transition: 0.25s ease;
+    }
+
+    textarea { min-height: 130px; resize: vertical; }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(56,189,248,0.11);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #000a18;
+      color: var(--white);
+      padding: 55px 0 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr 0.8fr;
+      gap: 30px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    footer p, footer a { color: rgba(255,255,255,0.65); font-size: 14px; }
+    footer h3 { margin-bottom: 16px; font-size: 16px; }
+
+    .footer-links { list-style: none; display: grid; gap: 10px; }
+    .footer-links a { transition: 0.2s ease; }
+    .footer-links a:hover { color: #7dd3fc; padding-left: 5px; }
+
+    .copyright {
+      padding-top: 24px;
+      text-align: center;
+      color: rgba(255,255,255,0.45);
+      font-size: 13px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 26px;
+      bottom: 26px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25d366;
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      z-index: 300;
+      box-shadow: 0 12px 30px rgba(37,211,102,0.4);
+      transition: 0.3s ease;
+    }
+
+    .whatsapp-float:hover { transform: translateY(-4px) scale(1.06); box-shadow: 0 20px 40px rgba(37,211,102,0.5); }
+
+    /* ── M-Pesa Panel ── */
+    .mpesa-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0 18px;
+    }
+    .mpesa-divider::before,
+    .mpesa-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .mpesa-divider span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      white-space: nowrap;
+    }
+
+    .mpesa-panel {
+      background: var(--white);
+      border: 2px solid #d4edda;
+      border-radius: 20px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mpesa-panel::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #00a651, #4caf50);
+    }
+
+    .mpesa-header {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 16px;
+    }
+
+    .mpesa-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #00a651;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 18px;
+      flex-shrink: 0;
+      box-shadow: 0 6px 18px rgba(0,166,81,0.35);
+    }
+
+    .mpesa-header-text h4 {
+      font-family: "Playfair Display", serif;
+      font-size: 16px;
+      color: var(--navy-dark);
+      margin-bottom: 2px;
+    }
+
+    .mpesa-header-text p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .mpesa-fee-box {
+      background: #f0faf4;
+      border: 1px solid #c8e6c9;
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .fee-label { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .fee-amount { font-family: "Playfair Display", serif; font-size: 24px; font-weight: 700; color: #00a651; }
+
+    .mpesa-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .mpesa-row .form-group { flex: 1; margin: 0; gap: 6px; }
+
+    .btn-mpesa {
+      background: #00a651;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      padding: 15px 20px;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0,166,81,0.3);
+      letter-spacing: 0.5px;
+    }
+
+    .btn-mpesa:hover { background: #008a44; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,166,81,0.4); }
+    .btn-mpesa:disabled { background: #aaa; box-shadow: none; transform: none; cursor: not-allowed; }
+
+    .mpesa-status {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      line-height: 1.4;
+    }
+    .mpesa-status.loading { display: flex; background: #e3f2fd; color: #1565c0; }
+    .mpesa-status.success { display: flex; background: #e8f5e9; color: #2e7d32; }
+    .mpesa-status.error   { display: flex; background: #ffebee; color: #c62828; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spin { display: inline-block; animation: spin 0.9s linear infinite; }
+
+    /* ── AOS overrides for smoother feel ── */
+    [data-aos] { pointer-events: none; }
+    [data-aos].aos-animate { pointer-events: auto; }
+
+    /* ── Responsive ── */
+    /* ── Tablet ── */
+    @media (max-width: 1024px) {
+      .hero-card { display: none; }
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+
+      .services-title-card,
+      .card-1, .card-2, .card-3, .card-4, .card-5 {
+        grid-column: auto;
+        grid-row: auto;
+        transform: none !important;
+      }
+
+      .packages-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 780px) {
+
+      /* Header */
+      header { padding: 10px 0; }
+      .logo-img { width: 48px; height: 48px; }
+      .logo { font-size: 15px; gap: 8px; }
+      .menu-btn { display: grid; place-items: center; }
+
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 3%;
+        right: 3%;
+        background: var(--white);
+        color: var(--navy-dark);
+        border-radius: 18px;
+        padding: 18px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        box-shadow: var(--shadow);
+        display: none;
+        z-index: 300;
+      }
+      .nav-links.active { display: flex; }
+      .nav-links a::after { background: var(--navy-dark); }
+
+      /* Hero */
+      .hero { min-height: auto; padding: 100px 0 50px; }
+      .hero-content { padding-top: 0; max-width: 100%; }
+      .hero h1 { font-size: clamp(34px, 9vw, 52px); letter-spacing: -1px; margin-bottom: 14px; }
+      .hero .orange-line { margin-bottom: 14px; }
+      .hero p { font-size: 14px; margin-bottom: 20px; }
+      .hero-btns { gap: 10px; }
+      .hero-btns .btn { padding: 11px 20px; font-size: 13px; }
+      .hero-locations { margin-top: 16px; gap: 7px; }
+      .loc-pill { font-size: 11px; padding: 4px 10px; }
+      .scroll-indicator { display: none; }
+      .blob { display: none; }
+
+      /* Stats */
+      .stats-wrap { margin-top: 0; padding-top: 0; }
+      .stats-box {
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 22px 16px;
+        border-radius: 0;
+        gap: 10px;
+        border-bottom-width: 3px;
+      }
+      .stat-item h3 { font-size: 26px; }
+      .stat-item i { font-size: 20px; margin-bottom: 6px; }
+      .stat-item span { font-size: 10px; }
+      .stat-item:not(:last-child)::after { display: block; }
+
+      /* Sections — cut padding in half */
+      .about { padding: 50px 0 40px; }
+      .services { padding: 50px 0 55px; }
+      .packages { padding: 50px 0; }
+      .office-section { padding: 50px 0; }
+      .coverage-strip { padding: 40px 0; }
+      .cta { padding: 46px 0; }
+      .contact { padding: 50px 0; }
+      footer { padding: 36px 0 18px; }
+
+      /* Grids → single column */
+      .about-grid, .office-grid, .cta-box, .contact-grid, .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      /* About image */
+      .about-image { min-height: 240px; border-radius: 50px 0 50px 0; }
+      .about-badge { width: 90px; height: 90px; font-size: 11px; right: 8px; bottom: 8px; }
+      .about-badge strong { font-size: 22px; }
+      .about-list { grid-template-columns: 1fr; gap: 8px; }
+      .about-list div { padding: 8px 12px; font-size: 13px; }
+
+      /* Services */
+      .services-grid { grid-template-columns: 1fr; gap: 16px; }
+      .service-card { padding: 24px 22px; min-height: auto; border-radius: 0 40px 0 0; }
+      .service-icon { width: 44px; height: 44px; margin-bottom: 12px; }
+      .service-card i { font-size: 20px; }
+      .service-card h3 { font-size: 16px; margin-bottom: 6px; }
+      .service-card p { font-size: 13px; }
+
+      /* Packages */
+      .packages-grid { grid-template-columns: 1fr; gap: 14px; }
+      .package-card { padding: 22px 20px; border-radius: 20px; }
+      .package-card.popular { transform: none; }
+      .speed { font-size: 36px; }
+      .price { font-size: 20px; margin-bottom: 14px; }
+      .features { gap: 8px; margin-bottom: 16px; }
+
+      /* Coverage */
+      .coverage-cards { grid-template-columns: 1fr; gap: 14px; }
+      .coverage-card { padding: 24px 20px; border-radius: 18px; }
+      .coverage-icon { width: 48px; height: 48px; font-size: 20px; margin-bottom: 12px; }
+      .coverage-inner { margin-bottom: 24px; }
+      .coverage-inner h3 { font-size: 20px; }
+
+      /* Office */
+      .office-img { min-height: 220px; border-radius: 0 50px 0 50px !important; }
+
+      /* CTA */
+      .cta h2 { font-size: 24px; margin-bottom: 10px; }
+      .cta p { font-size: 13px; }
+      .cta-actions { justify-content: flex-start; gap: 10px; flex-wrap: wrap; }
+
+      /* Contact */
+      .contact-info { padding: 28px 20px; border-radius: 22px; }
+      .contact-form { padding: 24px 16px; border-radius: 22px; }
+      .form-grid { grid-template-columns: 1fr; gap: 14px; }
+      .contact-item i { width: 36px; height: 36px; }
+
+      /* Footer */
+      .footer-grid { gap: 20px; padding-bottom: 24px; }
+      footer h3 { margin-bottom: 10px; font-size: 14px; }
+      .footer-links { gap: 7px; }
+      .logo-img { width: 40px; height: 40px; }
+
+      /* Section titles */
+      .section-title { font-size: clamp(22px, 6vw, 32px); }
+      .center-title { margin-bottom: 30px; }
+    }
+
+    /* ── Small phones ── */
+    @media (max-width: 400px) {
+      .hero h1 { font-size: 30px; }
+      .stats-box { grid-template-columns: 1fr; gap: 6px; padding: 18px 14px; }
+      .stat-item:not(:last-child)::after { display: none; }
+      .stat-item h3 { font-size: 28px; }
+      .hero-btns { flex-direction: column; }
+      .hero-btns .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="mainHeader">
+    <div class="container navbar">
+      <a href="#" class="logo">
+        <img src="images/mozalogo.png" alt="Mozalife Logo" class="logo-img">
+        <span>MOZALIFE</span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <!-- Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <!-- Particles -->
+    <div class="hero-particles" id="particles"></div>
+
+    <div class="container" style="position:relative;z-index:2;width:100%;">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span></span> Powering Homes, Businesses &amp; Students in Kisii
+        </div>
+
+        <h1>
+          <span class="hero-word">Fast&nbsp;</span>
+          <span class="hero-word">Reliable&nbsp;</span>
+          <span class="hero-word">Internet&nbsp;</span>
+          <span class="hero-word" style="color:#7dd3fc;">Services</span>
+        </h1>
+
+        <div class="orange-line"></div>
+
+        <p>
+          Stable home fibre, business internet and hotspot WiFi for homes, shops,
+          offices and students across Kisii — installed fast, priced fairly.
+        </p>
+
+        <div class="hero-btns">
+          <a href="#contact" class="btn">Get Connected <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#packages" class="btn btn-outline">View Packages</a>
+        </div>
+
+        <div class="hero-locations">
+          <i class="fa-solid fa-location-dot"></i>
+          <span class="loc-pill">Kisii CBD</span>
+          <span class="loc-dot">·</span>
+          <span class="loc-pill">Mwembe</span>
+          <span class="loc-dot">·</span>
+          <span class="loc-pill">Kisii Campus</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating info card -->
+    <div class="hero-card">
+      <div class="hero-card-icon">
+        <i class="fa-solid fa-wifi" style="color:#fff;font-size:22px;"></i>
+      </div>
+      <strong>99%</strong>
+      <span>Network Uptime</span>
+      <div class="hero-card-divider"></div>
+      <div class="hero-card-row">
+        <i class="fa-solid fa-check-circle"></i> Home Fibre
+      </div>
+      <div class="hero-card-row">
+        <i class="fa-solid fa-check-circle"></i> Business Internet
+      </div>
+      <div class="hero-card-row">
+        <i class="fa-solid fa-check-circle"></i> 24/7 Support
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-indicator">
+      <div class="scroll-mouse"><div class="scroll-dot"></div></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-wrap">
+    <div class="container">
+      <div class="stats-box" data-aos="fade-up" data-aos-duration="900">
+        <div class="stat-item">
+          <i class="fa-solid fa-house-signal"></i>
+          <h3 data-count="500">500+</h3>
+          <span>Connected Homes</span>
+        </div>
+        <div class="stat-item">
+          <i class="fa-solid fa-gauge-high"></i>
+          <h3 data-count="99">99%</h3>
+          <span>Reliable Uptime</span>
+        </div>
+        <div class="stat-item">
+          <i class="fa-solid fa-headset"></i>
+          <h3>24/7</h3>
+          <span>Customer Support</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-image-wrap" data-aos="fade-right" data-aos-duration="1000">
+        <div class="about-image" id="aboutImg"></div>
+        <div class="about-badge">
+          <strong>5+</strong>
+          Years<br>Experience
+        </div>
+      </div>
+
+      <div class="about-text" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="150">
+        <span class="small-label"><i class="fa-solid fa-circle-dot"></i> About Us</span>
+        <h2 class="section-title">Internet Built for Homes, Shops &amp; Offices</h2>
+        <div class="orange-line"></div>
+        <p>
+          Mozalife provides fast, affordable and reliable connectivity
+          for everyday users and growing businesses. Our focus is simple: stable
+          internet, quick installation, fair packages and responsive support when
+          customers need help.
+        </p>
+
+        <div class="about-list">
+          <div><i class="fa-solid fa-check-circle"></i> Fast installation</div>
+          <div><i class="fa-solid fa-check-circle"></i> Affordable packages</div>
+          <div><i class="fa-solid fa-check-circle"></i> Business internet</div>
+          <div><i class="fa-solid fa-check-circle"></i> Friendly support</div>
+        </div>
+
+        <a href="#packages" class="btn">View Packages <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container services-grid">
+      <div class="services-title-card" data-aos="fade-right" data-aos-duration="900">
+        <span class="small-label"><i class="fa-solid fa-bolt"></i> Our Services</span>
+        <h2 class="section-title">We Provide Best ISP Solutions</h2>
+        <div class="orange-line"></div>
+        <p style="color: var(--muted); margin-bottom: 24px;">
+          Everything your home, business or hotspot network needs to stay connected.
+        </p>
+        <a href="#contact" class="btn">Request Service <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="service-card highlight card-1" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="100">
+        <div class="service-icon"><i class="fa-solid fa-house-signal"></i></div>
+        <h3>Home Fibre Internet</h3>
+        <p>Stable home internet packages for browsing, streaming, online classes and work.</p>
+      </div>
+
+      <div class="service-card card-2" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="200">
+        <div class="service-icon"><i class="fa-solid fa-building-signal"></i></div>
+        <h3>Business Internet</h3>
+        <p>Reliable connectivity for offices, shops, cyber cafes and small businesses.</p>
+      </div>
+
+      <div class="service-card card-3" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="150">
+        <div class="service-icon"><i class="fa-solid fa-wifi"></i></div>
+        <h3>Hotspot WiFi Solutions</h3>
+        <p>Custom hotspot portals, voucher systems and WiFi access for public areas.</p>
+      </div>
+
+<div class="service-card card-5" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="300">
+        <div class="service-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <h3>Network Support</h3>
+        <p>Quick troubleshooting for slow internet, disconnections and router issues.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section class="packages" id="packages">
+    <div class="container">
+      <div class="center-title" data-aos="fade-up" data-aos-duration="800">
+        <span class="small-label"><i class="fa-solid fa-tags"></i> Internet Packages</span>
+        <h2 class="section-title">Choose Your Best Package</h2>
+        <div class="orange-line"></div>
+        <p>Affordable plans for homes, families and businesses across Kenya.</p>
+      </div>
+
+      <div class="packages-grid">
+        <div class="package-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
+          <h3>Starter</h3>
+          <div class="speed">10<span style="font-size:18px;-webkit-text-fill-color:initial;color:var(--muted);">Mbps</span></div>
+          <div class="price">KES 1,500 <span>/ month</span></div>
+          <ul class="features">
+            <li><i class="fa-solid fa-check"></i> Best for light browsing</li>
+            <li><i class="fa-solid fa-check"></i> Social media</li>
+            <li><i class="fa-solid fa-check"></i> Basic streaming</li>
+          </ul>
+          <a href="https://wa.me/254757333666?text=Hello%20Mozalife%2C%20I%20want%20the%2010Mbps%20package" class="btn btn-outline">Choose Plan</a>
+        </div>
+
+        <div class="package-card popular" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+          <div class="badge">Popular</div>
+          <h3>Standard</h3>
+          <div class="speed">15<span style="font-size:18px;-webkit-text-fill-color:initial;color:rgba(255,255,255,0.5);">Mbps</span></div>
+          <div class="price">KES 2,000 <span>/ month</span></div>
+          <ul class="features">
+            <li><i class="fa-solid fa-check"></i> Family browsing</li>
+            <li><i class="fa-solid fa-check"></i> HD streaming</li>
+            <li><i class="fa-solid fa-check"></i> Online classes</li>
+          </ul>
+          <a href="https://wa.me/254757333666?text=Hello%20Mozalife%2C%20I%20want%20the%2015Mbps%20package" class="btn">Choose Plan</a>
+        </div>
+
+        <div class="package-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+          <h3>Premium</h3>
+          <div class="speed">20<span style="font-size:18px;-webkit-text-fill-color:initial;color:var(--muted);">Mbps</span></div>
+          <div class="price">KES 2,500 <span>/ month</span></div>
+          <ul class="features">
+            <li><i class="fa-solid fa-check"></i> Multiple devices</li>
+            <li><i class="fa-solid fa-check"></i> Smooth streaming</li>
+            <li><i class="fa-solid fa-check"></i> Work from home</li>
+          </ul>
+          <a href="https://wa.me/254757333666?text=Hello%20Mozalife%2C%20I%20want%20the%2020Mbps%20package" class="btn btn-outline">Choose Plan</a>
+        </div>
+
+        <div class="package-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+          <h3>Business</h3>
+          <div class="speed">30<span style="font-size:18px;-webkit-text-fill-color:initial;color:var(--muted);">Mbps</span></div>
+          <div class="price">KES 3,000 <span>/ month</span></div>
+          <ul class="features">
+            <li><i class="fa-solid fa-check"></i> Office internet</li>
+            <li><i class="fa-solid fa-check"></i> Priority support</li>
+            <li><i class="fa-solid fa-check"></i> Stable connection</li>
+          </ul>
+          <a href="https://wa.me/254757333666?text=Hello%20Mozalife%2C%20I%20want%20the%2030Mbps%20package" class="btn btn-outline">Choose Plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coverage -->
+  <section class="coverage-strip">
+    <div class="container">
+      <div class="coverage-inner" data-aos="fade-up" data-aos-duration="800">
+        <h3>Where We Serve in Kisii</h3>
+        <p>Fast, affordable internet across these key locations</p>
+      </div>
+      <div class="coverage-cards">
+        <div class="coverage-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
+          <div class="coverage-icon"><i class="fa-solid fa-city"></i></div>
+          <h4>Kisii CBD</h4>
+          <p>Covering businesses, shops and offices in the heart of Kisii town centre.</p>
+        </div>
+        <div class="coverage-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="150">
+          <div class="coverage-icon"><i class="fa-solid fa-house-signal"></i></div>
+          <h4>Mwembe</h4>
+          <p>Reliable home fibre and hotspot WiFi solutions for the Mwembe residential area.</p>
+        </div>
+        <div class="coverage-card campus-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+          <div class="coverage-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h4>Kisii Campus</h4>
+          <p>High-speed internet built for students — streaming, research and online classes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Office -->
+  <section class="office-section">
+    <div class="container office-grid">
+
+      <div class="office-text" data-aos="fade-right" data-aos-duration="1000">
+        <span class="small-label"><i class="fa-solid fa-building"></i> Our Office</span>
+        <h2 class="section-title">Walk In or Call — We're Always Ready</h2>
+        <div class="orange-line"></div>
+        <p>
+          Our office is set up to welcome every customer — whether you're coming in
+          to pick a package, need a quick network fix, or want to talk to our team
+          about the best internet plan for your home or business.
+        </p>
+        <div class="about-list" style="margin-bottom:32px;">
+          <div><i class="fa-solid fa-check-circle"></i> Walk-in consultations</div>
+          <div><i class="fa-solid fa-check-circle"></i> On-site technicians</div>
+          <div><i class="fa-solid fa-check-circle"></i> Same-day support</div>
+          <div><i class="fa-solid fa-check-circle"></i> Professional setup</div>
+        </div>
+        <a href="#contact" class="btn">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="about-image-wrap" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="150">
+        <div class="about-image office-img"></div>
+        <div class="about-badge">
+          <strong>24/7</strong>
+          Always<br>Open
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container cta-box">
+      <div data-aos="fade-right" data-aos-duration="900">
+        <h2>Need Fast Internet Installation?</h2>
+        <p>
+          Contact us today and our team will guide you on coverage, packages,
+          installation cost and the best plan for your home or business.
+        </p>
+      </div>
+      <div class="cta-actions" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+        <a href="tel:+254757333666" class="btn">Call Now <i class="fa-solid fa-phone"></i></a>
+        <a href="https://wa.me/254757333666" class="btn btn-outline">WhatsApp Us <i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info" data-aos="fade-right" data-aos-duration="900">
+        <span class="small-label" style="color:#7dd3fc;"><i class="fa-solid fa-phone"></i> Contact Us</span>
+        <h2 class="section-title" style="color: white;">Get Connected Today</h2>
+        <p>
+          Fill the form or contact us directly through phone, email or WhatsApp.
+          We will confirm coverage and recommend the right package.
+        </p>
+
+        <div class="contact-item">
+          <i class="fa-solid fa-phone-volume"></i>
+          <div>
+            <strong>Phone</strong><br>
+            <a href="tel:+254757333666" style="color:rgba(255,255,255,0.8);">0757 333 666</a> /
+            <a href="tel:+254757333666" style="color:rgba(255,255,255,0.8);">0757 333 666</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <i class="fa-brands fa-whatsapp"></i>
+          <div>
+            <strong>WhatsApp</strong><br>
+            <a href="https://wa.me/254757333666" style="color:rgba(255,255,255,0.8);">Chat with us now</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <div>
+            <strong>Email</strong><br>
+            <a href="mailto:info@moza-life.com" style="color:rgba(255,255,255,0.8);">info@moza-life.com</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <div>
+            <strong>Coverage Areas</strong><br>
+            Kisii CBD &bull; Mwembe &bull; Kisii Campus
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+        <h2 style="margin-bottom: 20px; color: var(--navy-dark);">Request Installation</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" placeholder="07XX XXX XXX" required>
+          </div>
+
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" id="location" placeholder="Estate / town / building" required>
+          </div>
+
+          <div class="form-group">
+            <label>Preferred Package</label>
+            <select id="package">
+              <option>10Mbps - KES 1,500</option>
+              <option>15Mbps - KES 2,000</option>
+              <option>20Mbps - KES 2,500</option>
+              <option>30Mbps - KES 3,000</option>
+              <option>Not sure, advise me</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label>Message</label>
+            <textarea id="message" placeholder="Tell us what you need..."></textarea>
+          </div>
+
+          <div class="form-group full">
+            <button type="submit" class="btn">Send Request on WhatsApp <i class="fa-brands fa-whatsapp"></i></button>
+          </div>
+        </div>
+
+        <!-- M-Pesa Payment -->
+        <div class="mpesa-divider"><span>OR PAY INSTALLATION FEE DIRECTLY</span></div>
+
+        <div class="mpesa-panel">
+          <div class="mpesa-header">
+            <div class="mpesa-badge"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <div class="mpesa-header-text">
+              <h4>Pay via M-Pesa</h4>
+              <p>STK push sent straight to your phone — enter PIN to complete</p>
+            </div>
+          </div>
+
+          <div class="mpesa-fee-box">
+            <span class="fee-label">Installation Fee</span>
+            <span class="fee-amount">KES 500</span>
+          </div>
+
+          <div class="mpesa-row">
+            <div class="form-group">
+              <label>M-Pesa Phone Number</label>
+              <input type="tel" id="mpesaPhone" placeholder="07XX XXX XXX">
+            </div>
+            <button type="button" class="btn-mpesa" id="stkBtn">
+              <i class="fa-solid fa-paper-plane"></i> Pay Now
+            </button>
+          </div>
+
+          <div class="mpesa-status" id="mpesaStatus"></div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div data-aos="fade-up" data-aos-duration="700">
+          <a href="#" class="logo" style="margin-bottom: 16px;">
+            <span class="logo-mark">ML</span>
+            <span>Mozalife</span>
+          </a>
+          <p>
+            Reliable home fibre, business internet, hotspot WiFi solutions and network support across Kenya.
+          </p>
+        </div>
+
+        <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#packages">Packages</a></li>
+          </ul>
+        </div>
+
+        <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+          <h3>Services</h3>
+          <ul class="footer-links">
+            <li><a href="#services">Home Internet</a></li>
+            <li><a href="#services">Business Internet</a></li>
+            <li><a href="#services">Hotspot WiFi</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © <span id="year"></span> Mozalife. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/254757333666" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // ── AOS ──
+    AOS.init({ duration: 850, once: true, offset: 70, easing: 'ease-out-cubic' });
+
+    // ── Sticky header ──
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── Mobile menu ──
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    menuBtn.addEventListener("click", () => navLinks.classList.toggle("active"));
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => navLinks.classList.remove("active"));
+    });
+
+    // ── Year ──
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ── Hero parallax ──
+    const hero = document.querySelector('.hero');
+    const aboutImg = document.getElementById('aboutImg');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (hero) hero.style.backgroundPositionY = `calc(center + ${y * 0.3}px)`;
+      if (aboutImg) {
+        const rect = aboutImg.getBoundingClientRect();
+        const offset = (window.innerHeight / 2 - rect.top - rect.height / 2) * 0.08;
+        aboutImg.style.backgroundPositionY = `calc(center + ${-offset}px)`;
+      }
+    }, { passive: true });
+
+    // ── Particles ──
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 28; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        width: ${Math.random() * 3 + 2}px;
+        height: ${Math.random() * 3 + 2}px;
+        animation-duration: ${Math.random() * 14 + 10}s;
+        animation-delay: ${Math.random() * 12}s;
+        opacity: ${Math.random() * 0.5 + 0.1};
+      `;
+      container.appendChild(p);
+    }
+
+    // ── Counter animation ──
+    const countEls = document.querySelectorAll('[data-count]');
+    const counterObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.count);
+        const suffix = el.textContent.replace(/[0-9]/g, '');
+        let current = 0;
+        const step = target / 70;
+        const tick = () => {
+          current = Math.min(current + step, target);
+          el.textContent = Math.floor(current) + suffix;
+          if (current < target) requestAnimationFrame(tick);
+        };
+        tick();
+        counterObs.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    countEls.forEach(el => counterObs.observe(el));
+
+    // ── M-Pesa STK Push ──
+    const stkBtn      = document.getElementById('stkBtn');
+    const mpesaStatus = document.getElementById('mpesaStatus');
+
+    stkBtn.addEventListener('click', async () => {
+      // Use M-Pesa field or fall back to the main phone field
+      let raw = (document.getElementById('mpesaPhone').value || document.getElementById('phone').value).trim();
+
+      if (!raw) {
+        mpesaStatus.className = 'mpesa-status error';
+        mpesaStatus.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please enter your M-Pesa phone number.';
+        return;
+      }
+
+      // Normalise to 2547XXXXXXXX
+      let phone = raw.replace(/\s+/g, '');
+      if (phone.startsWith('0'))  phone = '254' + phone.slice(1);
+      if (phone.startsWith('+'))  phone = phone.slice(1);
+
+      stkBtn.disabled = true;
+      mpesaStatus.className = 'mpesa-status loading';
+      mpesaStatus.innerHTML = '<i class="fa-solid fa-circle-notch spin"></i> Sending payment request to ' + raw + '…';
+
+      try {
+        // ── Point this to your Daraja STK-push backend endpoint ──
+        const res  = await fetch('/api/stk-push', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ phone, amount: 500, account: 'Mozalife Installation' })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.ResponseCode === '0') {
+          mpesaStatus.className = 'mpesa-status success';
+          mpesaStatus.innerHTML = '<i class="fa-solid fa-circle-check"></i> Request sent! Check your phone and enter your M-Pesa PIN to complete payment.';
+        } else {
+          throw new Error(data.errorMessage || 'Payment request failed.');
+        }
+      } catch (err) {
+        mpesaStatus.className = 'mpesa-status error';
+        mpesaStatus.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> ' + (err.message || 'Could not send request. Try again.');
+      } finally {
+        stkBtn.disabled = false;
+      }
+    });
+
+    // ── WhatsApp form ──
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name     = document.getElementById("name").value.trim();
+      const phone    = document.getElementById("phone").value.trim();
+      const location = document.getElementById("location").value.trim();
+      const pkg      = document.getElementById("package").value;
+      const message  = document.getElementById("message").value.trim();
+      const text = `Hello Mozalife,%0A%0AI want internet installation.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0ALocation: ${encodeURIComponent(location)}%0APackage: ${encodeURIComponent(pkg)}%0AMessage: ${encodeURIComponent(message || "No extra message")}`;
+      window.open(`https://wa.me/254757333666?text=${text}`, "_blank");
+    });
+  </script>
+</body>
+</html>
