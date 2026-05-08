@@ -130,7 +130,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      height: 90px;
+      height: 220px;
       background: transparent;
       z-index: 200;
       display: flex;
@@ -145,7 +145,7 @@
     }
 
     .header-logo img {
-      height: 76px;
+      height: 200px;
       width: auto;
       object-fit: contain;
       filter: drop-shadow(0 2px 12px rgba(0,0,0,0.45));
@@ -345,7 +345,7 @@
       position: relative;
       z-index: 2;
       max-width: 650px;
-      padding-top: 110px;
+      padding-top: 220px;
     }
 
     .hero-eyebrow {
@@ -630,7 +630,7 @@
 
     .coverage-cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 24px;
       position: relative;
       z-index: 1;
@@ -713,8 +713,128 @@
       line-height: 1.6;
     }
 
+    .coverage-map {
+      position: relative;
+      z-index: 1;
+      margin-top: 40px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    }
+    .coverage-map img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+    .coverage-map-label {
+      position: absolute;
+      top: 20px; left: 20px;
+      background: rgba(0,20,55,0.88);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(56,189,248,0.4);
+      letter-spacing: 0.3px;
+    }
+    .coverage-map-label i { color: #7dd3fc; font-size: 16px; }
+    .coverage-map-pins {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,20,55,0.92), transparent);
+      padding: 28px 28px 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .map-pin-tag {
+      background: rgba(56,189,248,0.18);
+      border: 1px solid rgba(56,189,248,0.4);
+      color: #bae6fd;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .map-pin-tag i { color: #38bdf8; font-size: 11px; }
+
     @media (max-width: 780px) {
+      .coverage-cards { grid-template-columns: 1fr 1fr; }
+      .coverage-map img { height: 220px; }
+    }
+    @media (max-width: 480px) {
       .coverage-cards { grid-template-columns: 1fr; }
+    }
+
+    /* ── Why Choose Home Internet ── */
+    .why-choose {
+      background: #f0f6ff;
+      padding: 80px 0;
+    }
+    .why-choose-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      margin-top: 44px;
+    }
+    .why-card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 34px 26px;
+      box-shadow: 0 4px 22px rgba(14,165,233,0.08);
+      border: 1px solid #e0eeff;
+      transition: 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .why-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--orange), var(--orange-dark));
+      border-radius: 4px 4px 0 0;
+    }
+    .why-card:hover { transform: translateY(-6px); box-shadow: 0 14px 40px rgba(14,165,233,0.16); }
+    .why-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(56,189,248,0.15), rgba(14,165,233,0.06));
+      border: 1px solid rgba(56,189,248,0.25);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      color: var(--orange-dark);
+      margin-bottom: 18px;
+    }
+    .why-card h4 {
+      font-family: "Playfair Display", serif;
+      font-size: 18px;
+      color: var(--navy-dark);
+      margin-bottom: 8px;
+    }
+    .why-card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      margin: 0;
+    }
+    @media (max-width: 780px) {
+      .why-choose-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    }
+    @media (max-width: 480px) {
+      .why-choose-grid { grid-template-columns: 1fr; }
     }
 
     /* ── Stats ── */
@@ -1420,7 +1540,8 @@
     }
 
     .fee-label { font-size: 13px; color: var(--muted); font-weight: 600; }
-    .fee-amount { font-family: "Playfair Display", serif; font-size: 24px; font-weight: 700; color: #00a651; }
+    .fee-amount { font-family: "Playfair Display", serif; font-size: 22px; font-weight: 700; color: #00a651; }
+    .fee-amount:empty, .fee-amount { word-break: break-word; }
 
     .mpesa-row {
       display: flex;
@@ -1512,7 +1633,7 @@
 
       .nav-links {
         position: absolute;
-        top: 72px; left: 0; right: 0;
+        top: 80px; left: 0; right: 0;
         height: auto;
         flex-direction: column;
         align-items: flex-start;
@@ -1601,6 +1722,12 @@
       .coverage-icon { width: 48px; height: 48px; font-size: 20px; margin-bottom: 12px; }
       .coverage-inner { margin-bottom: 24px; }
       .coverage-inner h3 { font-size: 20px; }
+      .coverage-map img { height: 200px; }
+      .coverage-map-pins { padding: 16px 16px 14px; gap: 7px; }
+      .map-pin-tag { font-size: 11px; padding: 4px 10px; }
+      /* Why Choose */
+      .why-choose-grid { grid-template-columns: 1fr; gap: 14px; }
+      .why-card { padding: 24px 20px; border-radius: 18px; }
 
       /* Office */
       .office-img { min-height: 220px; border-radius: 0 50px 0 50px !important; }
@@ -1706,6 +1833,10 @@
           <span class="loc-pill">Mwembe</span>
           <span class="loc-dot">·</span>
           <span class="loc-pill">Kisii Campus</span>
+          <span class="loc-dot">·</span>
+          <span class="loc-pill">Nyachwa</span>
+          <span class="loc-dot">·</span>
+          <span class="loc-pill">Menyinkwa</span>
         </div>
       </div>
     </div>
@@ -1895,6 +2026,50 @@
     </div>
   </section>
 
+  <!-- Why Choose Home Internet -->
+  <section class="why-choose" id="why-choose">
+    <div class="container">
+      <div class="center-title" data-aos="fade-up" data-aos-duration="800">
+        <span class="small-label"><i class="fa-solid fa-star"></i> Why Mozalife</span>
+        <h2 class="section-title">Why Choose Our Home Internet?</h2>
+        <div class="orange-line"></div>
+        <p>Everything included — no hidden costs, no surprises.</p>
+      </div>
+      <div class="why-choose-grid">
+        <div class="why-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
+          <div class="why-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <h4>Free Installation</h4>
+          <p>We set everything up at your home at zero cost — our technicians handle all the cabling and equipment setup.</p>
+        </div>
+        <div class="why-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="80">
+          <div class="why-icon"><i class="fa-solid fa-router"></i></div>
+          <h4>Free Router Included</h4>
+          <p>Get a quality WiFi router provided and configured for free when you subscribe to any of our packages.</p>
+        </div>
+        <div class="why-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="160">
+          <div class="why-icon"><i class="fa-solid fa-bolt"></i></div>
+          <h4>Fast & Reliable Speeds</h4>
+          <p>From 10 to 30 Mbps — consistent speeds for streaming, browsing, online classes and video calls.</p>
+        </div>
+        <div class="why-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="240">
+          <div class="why-icon"><i class="fa-solid fa-tag"></i></div>
+          <h4>No Hidden Charges</h4>
+          <p>What you see is what you pay. Transparent monthly pricing with no surprise fees or contract lock-ins.</p>
+        </div>
+        <div class="why-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="320">
+          <div class="why-icon"><i class="fa-solid fa-headset"></i></div>
+          <h4>Local Support in Kisii</h4>
+          <p>Our support team is based right here in Kisii — call us and get help fast without waiting days for a response.</p>
+        </div>
+        <div class="why-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
+          <div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h4>Stable Connection</h4>
+          <p>Our fibre infrastructure is built for uptime so your family stays connected for work, school and entertainment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Coverage -->
   <section class="coverage-strip">
     <div class="container">
@@ -1908,15 +2083,40 @@
           <h4>Kisii CBD</h4>
           <p>Covering businesses, shops and offices in the heart of Kisii town centre.</p>
         </div>
-        <div class="coverage-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="150">
+        <div class="coverage-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
           <div class="coverage-icon"><i class="fa-solid fa-house-signal"></i></div>
           <h4>Mwembe</h4>
           <p>Reliable home fibre and hotspot WiFi solutions for the Mwembe residential area.</p>
         </div>
-        <div class="coverage-card campus-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+        <div class="coverage-card campus-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
           <div class="coverage-icon"><i class="fa-solid fa-graduation-cap"></i></div>
           <h4>Kisii Campus</h4>
           <p>High-speed internet built for students — streaming, research and online classes.</p>
+        </div>
+        <div class="coverage-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+          <div class="coverage-icon"><i class="fa-solid fa-map-pin"></i></div>
+          <h4>Nyachwa</h4>
+          <p>Fast home internet and WiFi hotspots serving the Nyachwa residential neighbourhood.</p>
+        </div>
+        <div class="coverage-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
+          <div class="coverage-icon"><i class="fa-solid fa-wifi"></i></div>
+          <h4>Menyinkwa</h4>
+          <p>Quality broadband connectivity for homes and small businesses in Menyinkwa.</p>
+        </div>
+      </div>
+
+      <!-- Coverage Map -->
+      <div class="coverage-map" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
+        <div class="coverage-map-label">
+          <i class="fa-solid fa-map-location-dot"></i> Our Coverage Map — Kisii
+        </div>
+        <img src="images/map.jpg" alt="Mozalife Coverage Map in Kisii">
+        <div class="coverage-map-pins">
+          <span class="map-pin-tag"><i class="fa-solid fa-location-dot"></i> Kisii CBD</span>
+          <span class="map-pin-tag"><i class="fa-solid fa-location-dot"></i> Mwembe</span>
+          <span class="map-pin-tag"><i class="fa-solid fa-location-dot"></i> Kisii Campus</span>
+          <span class="map-pin-tag"><i class="fa-solid fa-location-dot"></i> Nyachwa</span>
+          <span class="map-pin-tag"><i class="fa-solid fa-location-dot"></i> Menyinkwa</span>
         </div>
       </div>
     </div>
@@ -1959,10 +2159,10 @@
   <section class="cta">
     <div class="container cta-box">
       <div data-aos="fade-right" data-aos-duration="900">
-        <h2>Need Fast Internet Installation?</h2>
+        <h2>Free Installation &amp; Free Router!</h2>
         <p>
-          Contact us today and our team will guide you on coverage, packages,
-          installation cost and the best plan for your home or business.
+          Contact us today — installation is completely free and we provide a
+          router at no cost. Just choose your package and we handle the rest.
         </p>
       </div>
       <div class="cta-actions" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
@@ -1988,7 +2188,7 @@
           <div>
             <strong>Phone</strong><br>
             <a href="tel:+254757333666" style="color:rgba(255,255,255,0.8);">0757 333 666</a> /
-            <a href="tel:+254757333666" style="color:rgba(255,255,255,0.8);">0757 333 666</a>
+            <a href="tel:+254769333222" style="color:rgba(255,255,255,0.8);">0769 333 222</a>
           </div>
         </div>
 
@@ -2012,7 +2212,7 @@
           <i class="fa-solid fa-location-dot"></i>
           <div>
             <strong>Coverage Areas</strong><br>
-            Kisii CBD &bull; Mwembe &bull; Kisii Campus
+            Kisii CBD &bull; Mwembe &bull; Kisii Campus &bull; Nyachwa &bull; Menyinkwa
           </div>
         </div>
       </div>
@@ -2057,20 +2257,20 @@
         </div>
 
         <!-- M-Pesa Payment -->
-        <div class="mpesa-divider"><span>OR PAY INSTALLATION FEE DIRECTLY</span></div>
+        <div class="mpesa-divider"><span>OR PAY YOUR FIRST MONTH VIA M-PESA</span></div>
 
         <div class="mpesa-panel">
           <div class="mpesa-header">
             <div class="mpesa-badge"><i class="fa-solid fa-mobile-screen-button"></i></div>
             <div class="mpesa-header-text">
               <h4>Pay via M-Pesa</h4>
-              <p>STK push sent straight to your phone — enter PIN to complete</p>
+              <p>Select a package above — STK push goes to your phone, enter PIN to complete</p>
             </div>
           </div>
 
           <div class="mpesa-fee-box">
-            <span class="fee-label">Installation Fee</span>
-            <span class="fee-amount">KES 500</span>
+            <span class="fee-label" id="feeLabel">Monthly Package</span>
+            <span class="fee-amount" id="feeAmount">— Select a package</span>
           </div>
 
           <div class="mpesa-row">
@@ -2209,9 +2409,39 @@
     // ── M-Pesa STK Push ──
     const stkBtn      = document.getElementById('stkBtn');
     const mpesaStatus = document.getElementById('mpesaStatus');
+    const pkgSelect   = document.getElementById('package');
+    const feeAmount   = document.getElementById('feeAmount');
+    const feeLabel    = document.getElementById('feeLabel');
+
+    function getPackageAmount() {
+      const val = pkgSelect ? pkgSelect.value : '';
+      const m = val.match(/KES\s*([\d,]+)/);
+      return m ? parseInt(m[1].replace(',', '')) : 0;
+    }
+
+    function updateFeeBox() {
+      const val = pkgSelect ? pkgSelect.value : '';
+      const amount = getPackageAmount();
+      if (amount) {
+        const name = val.split('-')[0].trim();
+        feeLabel.textContent = name + ' — Monthly';
+        feeAmount.textContent = 'KES ' + amount.toLocaleString();
+      } else {
+        feeLabel.textContent = 'Monthly Package';
+        feeAmount.textContent = '— Select a package';
+      }
+    }
+
+    if (pkgSelect) { pkgSelect.addEventListener('change', updateFeeBox); updateFeeBox(); }
 
     stkBtn.addEventListener('click', async () => {
-      // Use M-Pesa field or fall back to the main phone field
+      const amount = getPackageAmount();
+      if (!amount) {
+        mpesaStatus.className = 'mpesa-status error';
+        mpesaStatus.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please select a package first.';
+        return;
+      }
+
       let raw = (document.getElementById('mpesaPhone').value || document.getElementById('phone').value).trim();
 
       if (!raw) {
@@ -2227,14 +2457,14 @@
 
       stkBtn.disabled = true;
       mpesaStatus.className = 'mpesa-status loading';
-      mpesaStatus.innerHTML = '<i class="fa-solid fa-circle-notch spin"></i> Sending payment request to ' + raw + '…';
+      mpesaStatus.innerHTML = '<i class="fa-solid fa-circle-notch spin"></i> Sending KES ' + amount.toLocaleString() + ' request to ' + raw + '…';
 
       try {
         // ── Point this to your Daraja STK-push backend endpoint ──
         const res  = await fetch('/api/stk-push', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ phone, amount: 500, account: 'Mozalife Installation' })
+          body:    JSON.stringify({ phone, amount, account: 'Mozalife Internet' })
         });
         const data = await res.json();
 
