@@ -2559,6 +2559,27 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(leafMap);
 
+    // ── Green region encompassing all 5 coverage areas ──
+    L.polygon([
+      [-0.6540, 34.7680],
+      [-0.6570, 34.7860],
+      [-0.6710, 34.7930],
+      [-0.6820, 34.7840],
+      [-0.7000, 34.7800],
+      [-0.7090, 34.7700],
+      [-0.7070, 34.7530],
+      [-0.6970, 34.7400],
+      [-0.6840, 34.7390],
+      [-0.6680, 34.7490],
+      [-0.6540, 34.7600],
+    ], {
+      color: '#16a34a',
+      fillColor: '#22c55e',
+      fillOpacity: 0.13,
+      weight: 2.5,
+      dashArray: '9 6'
+    }).addTo(leafMap);
+
     const dimStyle = {
       color: '#ef4444', fillColor: '#ef4444',
       fillOpacity: 0.07, weight: 2,
