@@ -125,57 +125,52 @@
     }
 
     /* ── Header ── */
+    /* ── Single unified header ── */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
-      z-index: 200;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
-    }
-
-    header.scrolled {
-      box-shadow: 0 4px 30px rgba(0,0,0,0.28);
-    }
-
-    /* ── Logo banner: white left + light-blue right with chevron ── */
-    .header-banner {
-      position: relative;
       height: 88px;
       background: var(--orange); /* light blue */
+      z-index: 200;
       overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
 
-    .header-banner::before {
-      content: "";
+    /* White logo section with chevron pointing right */
+    .header-white {
       position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 58%;
+      left: 0; top: 0;
+      height: 100%;
+      width: 52%;
       background: #ffffff;
       clip-path: polygon(0 0, 86% 0, 100% 50%, 86% 100%, 0 100%);
-      z-index: 1;
-    }
-
-    .header-banner .container {
-      position: relative;
-      z-index: 2;
-      height: 100%;
       display: flex;
       align-items: center;
+      padding: 6px 24px;
+      z-index: 2;
     }
 
-    .logo-banner { display: block; line-height: 0; }
-
-    .logo-banner-img {
+    .header-white img {
       height: 74px;
       width: auto;
       object-fit: contain;
     }
 
-    /* ── Navigation bar below the banner ── */
-    .header-nav {
-      background: var(--navy-dark);
-      border-top: 1px solid rgba(255,255,255,0.07);
+    /* Nav links sit on the blue right side */
+    .nav-links {
+      position: absolute;
+      right: 32px; top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.4px;
+      z-index: 1;
     }
 
     .navbar {
@@ -1484,34 +1479,30 @@
     @media (max-width: 780px) {
 
       /* Header */
-      .header-banner { height: 60px; }
-      .logo-banner-img { height: 46px; }
-      .header-banner::before { width: 72%; }
-      .logo { font-size: 14px; gap: 7px; }
-      .logo-img { width: 28px; height: 28px; }
-      .menu-btn { display: grid; place-items: center; }
+      /* Header mobile */
+      header { height: 70px; overflow: visible; }
+      .header-white { width: 72%; padding: 4px 14px; }
+      .header-white img { height: 54px; }
+      .menu-btn { display: grid; place-items: center; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); z-index: 10; }
 
       .nav-links {
         position: absolute;
-        top: 108px;
-        left: 3%;
-        right: 3%;
-        background: var(--white);
-        color: var(--navy-dark);
-        border-radius: 18px;
-        padding: 18px;
+        top: 70px; left: 0; right: 0;
+        background: var(--navy-dark);
         flex-direction: column;
         align-items: flex-start;
-        gap: 14px;
-        box-shadow: var(--shadow);
+        gap: 0; padding: 0;
         display: none;
+        transform: none;
         z-index: 300;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       }
+      .nav-links li { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .nav-links li a { display: block; padding: 14px 24px; color: #fff; font-size: 15px; }
       .nav-links.active { display: flex; }
-      .nav-links a::after { background: var(--navy-dark); }
 
       /* Hero */
-      .hero { min-height: auto; padding: 120px 0 50px; }
+      .hero { min-height: auto; padding: 100px 0 50px; }
       .hero-content { padding-top: 0; max-width: 100%; }
       .hero h1 { font-size: clamp(34px, 9vw, 52px); letter-spacing: -1px; margin-bottom: 14px; }
       .hero .orange-line { margin-bottom: 14px; }
@@ -1624,30 +1615,26 @@
 
   <!-- Header -->
   <header id="mainHeader">
-    <!-- Logo banner: white + light-blue chevron -->
-    <div class="header-banner">
-      <div class="container">
-        <a href="#home" class="logo-banner">
-          <img src="images/mozalogo.png" alt="Mozalife Kenya Limited" class="logo-banner-img">
-        </a>
-      </div>
+    <!-- White logo area with chevron -->
+    <div class="header-white">
+      <a href="#home">
+        <img src="images/mozalogo.png" alt="Mozalife Kenya Limited">
+      </a>
     </div>
 
-    <!-- Nav bar -->
-    <div class="header-nav">
-      <div class="container navbar">
-        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#packages">Packages</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </div>
+    <!-- Nav links on blue side -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <!-- Mobile menu button -->
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
   </header>
 
   <!-- Hero -->
