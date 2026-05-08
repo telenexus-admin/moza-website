@@ -726,12 +726,14 @@
       border: 1px solid rgba(255,255,255,0.15);
       box-shadow: 0 8px 40px rgba(0,0,0,0.4);
     }
-    .coverage-map img {
+    .coverage-map img,
+    .coverage-map iframe {
       width: 100%;
-      height: 400px;
-      object-fit: cover;
+      height: 420px;
+      border: none;
       display: block;
     }
+    .coverage-map img { object-fit: cover; }
     .coverage-map-label {
       position: absolute;
       top: 20px; left: 20px;
@@ -774,7 +776,7 @@
 
     @media (max-width: 780px) {
       .coverage-cards { grid-template-columns: 1fr 1fr; }
-      .coverage-map img { height: 220px; }
+      .coverage-map img, .coverage-map iframe { height: 260px; }
     }
     @media (max-width: 480px) {
       .coverage-cards { grid-template-columns: 1fr; }
@@ -2114,7 +2116,13 @@
         <div class="coverage-map-label">
           <i class="fa-solid fa-map-location-dot"></i> Our Coverage Map — Kisii
         </div>
-        <img src="images/map.jpg" alt="Mozalife Coverage Map in Kisii">
+        <iframe
+          src="https://maps.google.com/maps?q=Kisii+Town,Kenya&t=&z=14&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mozalife Coverage Map — Kisii">
+        </iframe>
         <div class="coverage-map-pins">
           <span class="map-pin-tag"><i class="fa-solid fa-location-dot"></i> Kisii CBD</span>
           <span class="map-pin-tag"><i class="fa-solid fa-location-dot"></i> Mwembe</span>
