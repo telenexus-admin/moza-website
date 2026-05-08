@@ -151,11 +151,11 @@
       filter: drop-shadow(0 2px 12px rgba(0,0,0,0.45));
     }
 
-    /* Blue nav panel — starts at "Home", diagonal left edge */
+    /* Blue nav panel — fixed height, top-aligned */
     .nav-links {
       position: absolute;
       right: 0; top: 0;
-      height: 100%;
+      height: 70px;
       display: flex;
       align-items: center;
       gap: 26px;
@@ -674,14 +674,13 @@
       transition: 0.3s ease;
     }
 
-    .campus-card {
-      background-image: url("images/cta.jpg");
+    /* Shared image-background card pattern */
+    .img-card {
       background-size: cover;
       background-position: center;
       position: relative;
     }
-
-    .campus-card::after {
+    .img-card::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -689,12 +688,16 @@
       background: linear-gradient(160deg, rgba(0,20,55,0.82), rgba(0,109,180,0.6));
       z-index: 0;
     }
+    .img-card .coverage-icon,
+    .img-card h4,
+    .img-card p { position: relative; z-index: 1; }
+    .img-card::before { display: none; }
 
-    .campus-card .coverage-icon,
-    .campus-card h4,
-    .campus-card p { position: relative; z-index: 1; }
-
-    .campus-card::before { display: none; }
+    .campus-card  { background-image: url("images/cta.jpg"); }
+    .cbd-card     { background-image: url("images/cbd.jpg"); }
+    .mwembe-card  { background-image: url("images/mwembe.jpg"); }
+    .nyachwa-card { background-image: url("images/nyanjwa.jpg"); }
+    .menyinkwa-card { background-image: url("images/menyikwa.jpg"); }
 
     .coverage-card:hover .coverage-icon {
       background: linear-gradient(135deg, rgba(56,189,248,0.4), rgba(56,189,248,0.2));
@@ -2078,27 +2081,27 @@
         <p>Fast, affordable internet across these key locations</p>
       </div>
       <div class="coverage-cards">
-        <div class="coverage-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
+        <div class="coverage-card img-card cbd-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
           <div class="coverage-icon"><i class="fa-solid fa-city"></i></div>
           <h4>Kisii CBD</h4>
           <p>Covering businesses, shops and offices in the heart of Kisii town centre.</p>
         </div>
-        <div class="coverage-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+        <div class="coverage-card img-card mwembe-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
           <div class="coverage-icon"><i class="fa-solid fa-house-signal"></i></div>
           <h4>Mwembe</h4>
           <p>Reliable home fibre and hotspot WiFi solutions for the Mwembe residential area.</p>
         </div>
-        <div class="coverage-card campus-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+        <div class="coverage-card img-card campus-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
           <div class="coverage-icon"><i class="fa-solid fa-graduation-cap"></i></div>
           <h4>Kisii Campus</h4>
           <p>High-speed internet built for students — streaming, research and online classes.</p>
         </div>
-        <div class="coverage-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+        <div class="coverage-card img-card nyachwa-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
           <div class="coverage-icon"><i class="fa-solid fa-map-pin"></i></div>
           <h4>Nyachwa</h4>
           <p>Fast home internet and WiFi hotspots serving the Nyachwa residential neighbourhood.</p>
         </div>
-        <div class="coverage-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
+        <div class="coverage-card img-card menyinkwa-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
           <div class="coverage-icon"><i class="fa-solid fa-wifi"></i></div>
           <h4>Menyinkwa</h4>
           <p>Quality broadband connectivity for homes and small businesses in Menyinkwa.</p>
