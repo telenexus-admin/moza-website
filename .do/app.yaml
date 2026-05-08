@@ -1,0 +1,16 @@
+name: mozalife-website
+
+static_sites:
+  - name: mozalife
+    github:
+      repo: telenexus-admin/moza-website
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    index_document: login.html
+    error_document: login.html
+    routes:
+      - path: /
+    envs:
+      - key: NODE_ENV
+        value: production
