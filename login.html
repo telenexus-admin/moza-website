@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
   <style>
     :root {
@@ -748,7 +749,7 @@
       box-shadow: 0 8px 40px rgba(0,0,0,0.4);
     }
     .coverage-map img,
-    .coverage-map iframe {
+    #coverageMap {
       width: 100%;
       height: 420px;
       border: none;
@@ -803,7 +804,7 @@
 
     @media (max-width: 780px) {
       .coverage-cards { grid-template-columns: 1fr 1fr; }
-      .coverage-map img, .coverage-map iframe { height: 260px; }
+      .coverage-map img, #coverageMap { height: 260px; }
     }
     @media (max-width: 480px) {
       .coverage-cards { grid-template-columns: 1fr; }
@@ -2148,13 +2149,7 @@
         <div class="coverage-map-label">
           <i class="fa-solid fa-map-location-dot"></i> <span id="mapAreaLabel">Our Coverage Map — Kisii</span>
         </div>
-        <iframe
-          src="https://maps.google.com/maps?q=Kisii+Town,Kenya&t=&z=14&ie=UTF8&iwloc=&output=embed"
-          allowfullscreen
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Mozalife Coverage Map — Kisii">
-        </iframe>
+        <div id="coverageMap"></div>
         <div class="coverage-map-pins">
           <span class="map-pin-tag"><i class="fa-solid fa-location-dot"></i> Kisii CBD</span>
           <span class="map-pin-tag"><i class="fa-solid fa-location-dot"></i> Mwembe</span>
@@ -2378,6 +2373,7 @@
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     // ── AOS ──
@@ -2538,25 +2534,78 @@
       }
     });
 
-    // ── Coverage cards → live map ──
-    const mapFrame     = document.querySelector('.coverage-map iframe');
+    // ── Leaflet Coverage Map ──
+    const coverageAreas = {
+      'Kisii CBD':    { coords: [-0.6817, 34.7667], radius: 650 },
+      'Mwembe':       { coords: [-0.6920, 34.7520], radius: 520 },
+      'Kisii Campus': { coords: [-0.6730, 34.7820], radius: 450 },
+      'Nyachwa':      { coords: [-0.7020, 34.7670], radius: 520 },
+      'Menyinkwa':    { coords: [-0.6600, 34.7750], radius: 520 },
+    };
+
+    const leafMap = L.map('coverageMap', {
+      center: [-0.6817, 34.7667],
+      zoom: 13,
+      scrollWheelZoom: false,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(leafMap);
+
+    const dimStyle = {
+      color: '#ef4444', fillColor: '#ef4444',
+      fillOpacity: 0.07, weight: 2,
+      dashArray: '9 7'
+    };
+    const hotStyle = {
+      color: '#ef4444', fillColor: '#ef4444',
+      fillOpacity: 0.22, weight: 3.5,
+      dashArray: '9 7'
+    };
+
+    const areaCircles = {};
+
+    Object.entries(coverageAreas).forEach(([name, area]) => {
+      areaCircles[name] = L.circle(area.coords, { ...dimStyle, radius: area.radius }).addTo(leafMap);
+
+      L.marker(area.coords, {
+        icon: L.divIcon({
+          className: '',
+          html: `<div style="background:#ef4444;color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.35)">${name}</div>`,
+          iconAnchor: [40, 6]
+        })
+      }).addTo(leafMap);
+    });
+
+    // Fix tile rendering after AOS reveals the section
+    setTimeout(() => leafMap.invalidateSize(), 700);
+
     const mapAreaLabel = document.getElementById('mapAreaLabel');
     const mapSection   = document.querySelector('.coverage-map');
 
     document.querySelectorAll('.coverage-card[data-map-q]').forEach(card => {
       card.addEventListener('click', () => {
-        const q     = card.dataset.mapQ;
         const label = card.dataset.mapLabel;
+        const area  = coverageAreas[label];
+        if (!area) return;
 
-        // Swap map to selected area
-        mapFrame.src = `https://maps.google.com/maps?q=${q}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
-        mapAreaLabel.textContent = label + ' — Live Map';
+        // Highlight selected circle, dim others
+        Object.entries(areaCircles).forEach(([n, c]) =>
+          c.setStyle(n === label ? hotStyle : dimStyle)
+        );
 
-        // Highlight active card
+        // Fly to area with zoom
+        leafMap.flyTo(area.coords, 15, { duration: 1.1 });
+
+        // Active card state
         document.querySelectorAll('.coverage-card').forEach(c => c.classList.remove('map-active'));
         card.classList.add('map-active');
 
-        // Scroll smoothly to map
+        // Update label
+        mapAreaLabel.textContent = label + ' — Live Map';
+
+        // Scroll to map
         mapSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
     });
