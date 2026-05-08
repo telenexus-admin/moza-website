@@ -732,6 +732,8 @@
       height: 420px;
       border: none;
       display: block;
+      position: relative;
+      z-index: 1;
     }
     .coverage-map img { object-fit: cover; }
     .coverage-map-label {
@@ -749,6 +751,8 @@
       gap: 8px;
       border: 1px solid rgba(56,189,248,0.4);
       letter-spacing: 0.3px;
+      pointer-events: none;
+      z-index: 2;
     }
     .coverage-map-label i { color: #7dd3fc; font-size: 16px; }
     .coverage-map-pins {
@@ -759,6 +763,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      pointer-events: none;
+      z-index: 2;
     }
     .map-pin-tag {
       background: rgba(56,189,248,0.18);
