@@ -1,5 +1,8 @@
 {
   "name": "mozalife-website",
   "version": "1.0.0",
-  "description": "Mozalife Internet Solutions - Kisii"
+  "description": "Mozalife Internet Solutions - Kisii",
+  "scripts": {
+    "build": "mkdir -p public && cp login.html public/index.html && cp -r images public/images"
+  }
 }
