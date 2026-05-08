@@ -138,23 +138,21 @@
       box-shadow: 0 4px 30px rgba(0,0,0,0.28);
     }
 
-    /* Logo banner — white section + blue diagonal */
+    /* ── Logo banner: white left + light-blue right with chevron ── */
     .header-banner {
       position: relative;
       height: 88px;
-      background: #1400d4;
+      background: var(--orange); /* light blue */
       overflow: hidden;
     }
 
     .header-banner::before {
       content: "";
       position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 66%;
+      left: 0; top: 0; bottom: 0;
+      width: 58%;
       background: #ffffff;
-      clip-path: polygon(0 0, 88% 0, 100% 50%, 88% 100%, 0 100%);
+      clip-path: polygon(0 0, 86% 0, 100% 50%, 86% 100%, 0 100%);
       z-index: 1;
     }
 
@@ -166,20 +164,18 @@
       align-items: center;
     }
 
-    .logo-banner {
-      display: block;
-      line-height: 0;
-    }
+    .logo-banner { display: block; line-height: 0; }
 
     .logo-banner-img {
-      height: 68px;
+      height: 74px;
       width: auto;
       object-fit: contain;
     }
 
-    /* Navigation bar below the banner */
+    /* ── Navigation bar below the banner ── */
     .header-nav {
-      background: var(--navy);
+      background: var(--navy-dark);
+      border-top: 1px solid rgba(255,255,255,0.07);
     }
 
     .navbar {
@@ -335,7 +331,7 @@
       position: relative;
       z-index: 2;
       max-width: 650px;
-      padding-top: 150px;
+      padding-top: 170px;
     }
 
     .hero-eyebrow {
@@ -1628,23 +1624,29 @@
 
   <!-- Header -->
   <header id="mainHeader">
-    <div class="container navbar">
-      <a href="#" class="logo">
-        <img src="images/mozalogo.png" alt="Mozalife" class="logo-img">
-        <span>MOZALIFE</span>
-      </a>
+    <!-- Logo banner: white + light-blue chevron -->
+    <div class="header-banner">
+      <div class="container">
+        <a href="#home" class="logo-banner">
+          <img src="images/mozalogo.png" alt="Mozalife Kenya Limited" class="logo-banner-img">
+        </a>
+      </div>
+    </div>
 
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#packages">Packages</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+    <!-- Nav bar -->
+    <div class="header-nav">
+      <div class="container navbar">
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#packages">Packages</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
     </div>
   </header>
 
