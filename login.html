@@ -2520,7 +2520,13 @@
       const location = document.getElementById("location").value.trim();
       const pkg      = document.getElementById("package").value;
       const message  = document.getElementById("message").value.trim();
-      const text = `Hello Mozalife,%0A%0AI want internet installation.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0ALocation: ${encodeURIComponent(location)}%0APackage: ${encodeURIComponent(pkg)}%0AMessage: ${encodeURIComponent(message || "No extra message")}`;
+      const text = `🌐 *NEW INSTALLATION REQUEST*%0A%0A`
+               + `👤 *Name:* ${encodeURIComponent(name)}%0A`
+               + `📞 *Phone:* ${encodeURIComponent(phone)}%0A`
+               + `📍 *Location:* ${encodeURIComponent(location)}%0A`
+               + `📦 *Package:* ${encodeURIComponent(pkg)}%0A`
+               + `💬 *Message:* ${encodeURIComponent(message || 'None')}%0A%0A`
+               + `_Sent via Mozalife website_`;
       window.open(`https://wa.me/254757333666?text=${text}`, "_blank");
     });
   </script>
