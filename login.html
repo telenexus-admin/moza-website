@@ -125,53 +125,72 @@
     }
 
     /* ── Header ── */
-    /* ── Single unified header ── */
+    /* ── Header: transparent with floating logo + blue nav panel ── */
     header {
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      height: 88px;
-      background: #1a6fd4;
+      height: 90px;
+      background: transparent;
       z-index: 200;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    }
-
-    /* White logo section with chevron pointing right */
-    .header-white {
-      position: absolute;
-      left: 0; top: 0;
-      height: 100%;
-      width: 52%;
-      background: #ffffff;
-      clip-path: polygon(0 0, 86% 0, 100% 50%, 86% 100%, 0 100%);
       display: flex;
       align-items: center;
-      padding: 6px 24px;
+    }
+
+    /* Logo floats freely over the hero image */
+    .header-logo {
+      padding: 8px 22px;
+      flex-shrink: 0;
       z-index: 2;
     }
 
-    .header-white img {
-      height: 74px;
+    .header-logo img {
+      height: 76px;
       width: auto;
       object-fit: contain;
+      filter: drop-shadow(0 2px 12px rgba(0,0,0,0.45));
     }
 
-    /* Nav links sit on the blue right side */
+    /* Blue nav panel — starts at "Home", diagonal left edge */
     .nav-links {
       position: absolute;
-      right: 32px; top: 50%;
-      transform: translateY(-50%);
+      right: 0; top: 0;
+      height: 100%;
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 26px;
+      padding: 0 38px 0 70px;
+      background: rgba(26, 111, 212, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       list-style: none;
-      color: #fff;
-      font-weight: 700;
-      font-size: 15px;
-      letter-spacing: 0.4px;
-      z-index: 1;
+      clip-path: polygon(38px 0, 100% 0, 100% 100%, 38px 100%, 0 50%);
+      border-left: none;
     }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.92);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: #fff;
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; }
 
     .navbar {
       display: flex;
@@ -326,7 +345,7 @@
       position: relative;
       z-index: 2;
       max-width: 650px;
-      padding-top: 170px;
+      padding-top: 110px;
     }
 
     .hero-eyebrow {
@@ -1480,25 +1499,33 @@
 
       /* Header */
       /* Header mobile */
-      header { height: 70px; overflow: visible; }
-      .header-white { width: 72%; padding: 4px 14px; }
-      .header-white img { height: 54px; }
-      .menu-btn { display: grid; place-items: center; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); z-index: 10; }
+      header { height: 72px; }
+      .header-logo { padding: 6px 14px; }
+      .header-logo img { height: 56px; }
+      .menu-btn {
+        display: grid; place-items: center;
+        position: absolute; right: 14px; top: 50%;
+        transform: translateY(-50%); z-index: 10;
+        background: rgba(26,111,212,0.85);
+        border-radius: 10px;
+      }
 
       .nav-links {
         position: absolute;
-        top: 70px; left: 0; right: 0;
-        background: var(--navy-dark);
+        top: 72px; left: 0; right: 0;
+        height: auto;
         flex-direction: column;
         align-items: flex-start;
         gap: 0; padding: 0;
+        clip-path: none;
+        background: rgba(26,111,212,0.95);
+        backdrop-filter: blur(14px);
         display: none;
-        transform: none;
         z-index: 300;
         box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       }
-      .nav-links li { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.08); }
-      .nav-links li a { display: block; padding: 14px 24px; color: #fff; font-size: 15px; }
+      .nav-links li { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .nav-links li a { display: block; padding: 15px 24px; color: #fff; font-size: 15px; }
       .nav-links.active { display: flex; }
 
       /* Hero */
@@ -1615,14 +1642,14 @@
 
   <!-- Header -->
   <header id="mainHeader">
-    <!-- White logo area with chevron -->
-    <div class="header-white">
+    <!-- Logo: floats over the hero, no background -->
+    <div class="header-logo">
       <a href="#home">
         <img src="images/mozalogo.png" alt="Mozalife Kenya Limited">
       </a>
     </div>
 
-    <!-- Nav links on blue side -->
+    <!-- Blue nav panel: starts at Home, diagonal left edge -->
     <ul class="nav-links" id="navLinks">
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -1631,7 +1658,7 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
 
-    <!-- Mobile menu button -->
+    <!-- Mobile hamburger -->
     <button class="menu-btn" id="menuBtn" aria-label="Open menu">
       <i class="fa-solid fa-bars"></i>
     </button>
