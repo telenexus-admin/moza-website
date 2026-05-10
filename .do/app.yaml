@@ -7,7 +7,7 @@ static_sites:
       branch: main
       deploy_on_push: true
     source_dir: /
-    build_command: mkdir -p public && cp login.html public/index.html && cp -r images public/images
+    build_command: mkdir -p public && cp login.html public/index.html && cp -r images public/images && cp sitemap.xml public/sitemap.xml && cp robots.txt public/robots.txt
     output_dir: public
     index_document: index.html
     error_document: index.html
