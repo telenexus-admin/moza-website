@@ -7,6 +7,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://tile.openstreetmap.org">
+  <link rel="preload" as="image" href="images/hero.jpg">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -136,6 +140,8 @@
       z-index: 200;
       display: flex;
       align-items: center;
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     /* Logo floats freely over the hero image */
@@ -645,9 +651,11 @@
       padding: 36px 28px;
       text-align: center;
       color: #fff;
-      transition: 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       position: relative;
       overflow: hidden;
+      will-change: transform;
+      contain: layout style;
     }
 
     .coverage-card::before {
@@ -827,9 +835,11 @@
       padding: 34px 26px;
       box-shadow: 0 4px 22px rgba(14,165,233,0.08);
       border: 1px solid #e0eeff;
-      transition: 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
       overflow: hidden;
+      will-change: transform;
+      contain: layout style;
     }
     .why-card::before {
       content: "";
@@ -1485,7 +1495,9 @@
       font-size: 28px;
       z-index: 300;
       box-shadow: 0 12px 30px rgba(37,211,102,0.4);
-      transition: 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .whatsapp-float:hover { transform: translateY(-4px) scale(1.06); box-shadow: 0 20px 40px rgba(37,211,102,0.5); }
@@ -1807,7 +1819,7 @@
     <!-- Logo: floats over the hero, no background -->
     <div class="header-logo">
       <a href="#home">
-        <img src="images/mozalogo.png" alt="Mozalife Kenya Limited">
+        <img src="images/mozalogo.png" alt="Mozalife Kenya Limited" decoding="async" fetchpriority="high">
       </a>
     </div>
 
@@ -2385,22 +2397,41 @@
     // ── AOS ──
     AOS.init({ duration: 850, once: true, offset: 70, easing: 'ease-out-cubic' });
 
-    // ── Sticky header + logo fade ──
+    // ── Scroll: single RAF-throttled handler for header, logo fade & parallax ──
     const header  = document.getElementById('mainHeader');
     const logoEl  = document.querySelector('.header-logo');
-    const FADE_START = 300;   // px scrolled before logo starts fading
-    const FADE_END   = 600;   // px scrolled when logo is fully gone
+    const FADE_START = 300;
+    const FADE_END   = 600;
+    const hero    = document.querySelector('.hero');
+    const aboutImg = document.getElementById('aboutImg');
 
-    window.addEventListener('scroll', () => {
+    let scrollTicking = false;
+    function handleScroll() {
       const y = window.scrollY;
+
       header.classList.toggle('scrolled', y > 60);
 
-      // Fade logo out as content scrolls underneath it
       const opacity = y <= FADE_START ? 1
                     : y >= FADE_END   ? 0
                     : 1 - (y - FADE_START) / (FADE_END - FADE_START);
       logoEl.style.opacity       = opacity;
       logoEl.style.pointerEvents = opacity < 0.05 ? 'none' : '';
+
+      if (hero) hero.style.backgroundPositionY = `calc(center + ${y * 0.3}px)`;
+      if (aboutImg) {
+        const rect   = aboutImg.getBoundingClientRect();
+        const offset = (window.innerHeight / 2 - rect.top - rect.height / 2) * 0.08;
+        aboutImg.style.backgroundPositionY = `calc(center + ${-offset}px)`;
+      }
+
+      scrollTicking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        requestAnimationFrame(handleScroll);
+        scrollTicking = true;
+      }
     }, { passive: true });
 
     // ── Mobile menu ──
@@ -2414,22 +2445,10 @@
     // ── Year ──
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ── Hero parallax ──
-    const hero = document.querySelector('.hero');
-    const aboutImg = document.getElementById('aboutImg');
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (hero) hero.style.backgroundPositionY = `calc(center + ${y * 0.3}px)`;
-      if (aboutImg) {
-        const rect = aboutImg.getBoundingClientRect();
-        const offset = (window.innerHeight / 2 - rect.top - rect.height / 2) * 0.08;
-        aboutImg.style.backgroundPositionY = `calc(center + ${-offset}px)`;
-      }
-    }, { passive: true });
 
     // ── Particles ──
     const container = document.getElementById('particles');
-    for (let i = 0; i < 28; i++) {
+    for (let i = 0; i < 14; i++) {
       const p = document.createElement('div');
       p.className = 'particle';
       p.style.cssText = `
@@ -2540,7 +2559,16 @@
       }
     });
 
-    // ── Leaflet Coverage Map ──
+    // ── Leaflet Coverage Map (lazy-init on scroll into view) ──
+    let leafMapReady = false;
+    new IntersectionObserver((entries, obs) => {
+      if (!entries[0].isIntersecting || leafMapReady) return;
+      leafMapReady = true;
+      obs.disconnect();
+      initLeaflet();
+    }, { threshold: 0.1 }).observe(document.getElementById('coverageMap'));
+
+    function initLeaflet() {
     const coverageAreas = {
       'Kisii CBD':    { coords: [-0.6817, 34.7667], radius: 650 },
       'Mwembe':       { coords: [-0.6920, 34.7520], radius: 520 },
@@ -2617,25 +2645,20 @@
         const area  = coverageAreas[label];
         if (!area) return;
 
-        // Highlight selected circle, dim others
         Object.entries(areaCircles).forEach(([n, c]) =>
           c.setStyle(n === label ? hotStyle : dimStyle)
         );
 
-        // Fly to area with zoom
         leafMap.flyTo(area.coords, 15, { duration: 1.1 });
 
-        // Active card state
         document.querySelectorAll('.coverage-card').forEach(c => c.classList.remove('map-active'));
         card.classList.add('map-active');
 
-        // Update label
         mapAreaLabel.textContent = label + ' — Live Map';
-
-        // Scroll to map
         mapSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
     });
+    } // end initLeaflet
 
     // ── WhatsApp form ──
     document.getElementById("contactForm").addEventListener("submit", function(e) {
