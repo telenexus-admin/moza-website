@@ -1,0 +1,249 @@
+/* Mozalife visual upgrade: premium heading font + creative motion */
+:root{
+  --ml-heading:"Playfair Display", Georgia, serif;
+  --ml-body:"Lato", Arial, sans-serif;
+  --ml-blue:#38bdf8;
+  --ml-blue-dark:#0b2c55;
+  --ml-glow:0 18px 55px rgba(56,189,248,.28);
+}
+
+/* Use the hero-style serif font across every heading and heading-like title */
+h1,h2,h3,h4,h5,h6,
+.section-title,
+.hero-title,
+.service-title,
+.card-title,
+.package-title,
+.plan-title,
+.coverage-title,
+.pricing-title,
+.testimonial-title,
+.footer-title,
+.stat-item h3,
+.package-card h3,
+.service-card h3,
+.feature-card h3,
+.coverage-card h3,
+.benefit-card h3,
+.contact-card h3,
+.faq-item h3,
+[class*="title"],
+[class*="heading"]{
+  font-family:var(--ml-heading)!important;
+  font-weight:900!important;
+  letter-spacing:-.035em;
+}
+
+/* Make headings feel less basic: rich gradient + elegant underline */
+.section-title,
+.hero h1,
+.hero-title,
+main h1,
+main h2,
+.section-heading h2{
+  position:relative;
+  display:inline-block;
+  text-wrap:balance;
+}
+
+main h1 span,
+.hero h1 span,
+.section-title span{
+  background:linear-gradient(120deg,#ffffff 0%,#7dd3fc 45%,#38bdf8 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+main h2::after,
+.section-title::after,
+.section-heading h2::after,
+.center-heading h2::after{
+  content:"";
+  display:block;
+  width:86px;
+  height:5px;
+  margin-top:14px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#38bdf8,#ffffff,#0ea5e9);
+  box-shadow:0 8px 24px rgba(56,189,248,.35);
+  transform-origin:left center;
+}
+
+/* Header/title reveal animation classes injected by enhancements.js */
+.ml-animate-heading{
+  opacity:0;
+  transform:translateY(34px) scale(.985);
+  filter:blur(7px);
+}
+
+.ml-animate-heading.ml-visible{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  filter:blur(0);
+  transition:opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1), filter .9s ease;
+}
+
+.ml-animate-heading.ml-visible::after{
+  animation:mlLineGrow .85s .2s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes mlLineGrow{
+  from{transform:scaleX(0);opacity:0;}
+  to{transform:scaleX(1);opacity:1;}
+}
+
+/* Hero entrance */
+.hero h1,
+.hero .small-label,
+.hero p,
+.hero .btn,
+.hero .location-chip,
+.hero [class*="chip"],
+.hero [class*="pill"]{
+  animation:mlHeroUp .9s cubic-bezier(.2,.8,.2,1) both;
+}
+.hero .small-label{animation-delay:.08s;}
+.hero h1{animation-delay:.16s;}
+.hero p{animation-delay:.28s;}
+.hero .btn{animation-delay:.4s;}
+.hero .location-chip,
+.hero [class*="chip"],
+.hero [class*="pill"]{animation-delay:.52s;}
+
+@keyframes mlHeroUp{
+  from{opacity:0;transform:translateY(28px);filter:blur(8px);}
+  to{opacity:1;transform:translateY(0);filter:blur(0);}
+}
+
+/* Photo motion: reveal, zoom, hover lift, and soft glow */
+.ml-animate-photo,
+.hero img,
+section img{
+  will-change:transform, opacity, filter;
+}
+
+.ml-animate-photo{
+  opacity:0;
+  transform:translateY(38px) scale(.95) rotate(-1.5deg);
+  filter:saturate(.88) contrast(.95) blur(4px);
+}
+
+.ml-animate-photo.ml-visible{
+  opacity:1;
+  transform:translateY(0) scale(1) rotate(0);
+  filter:saturate(1.08) contrast(1.04) blur(0);
+  transition:opacity 1s ease, transform 1s cubic-bezier(.18,.9,.22,1), filter 1s ease;
+}
+
+.hero img,
+.photo-card img,
+.service-card img,
+.feature-card img,
+.card img,
+[class*="image"] img,
+[class*="photo"] img{
+  transition:transform .8s cubic-bezier(.2,.8,.2,1), filter .8s ease, box-shadow .8s ease;
+}
+
+.hero img:hover,
+.photo-card:hover img,
+.service-card:hover img,
+.feature-card:hover img,
+.card:hover img,
+[class*="image"]:hover img,
+[class*="photo"]:hover img{
+  transform:scale(1.055) translateY(-4px);
+  filter:saturate(1.15) contrast(1.05);
+}
+
+/* Give photo containers a modern glass/glow edge */
+.photo-card,
+.service-card,
+.feature-card,
+.package-card,
+.card,
+[class*="image-wrap"],
+[class*="photo-wrap"]{
+  position:relative;
+  overflow:hidden;
+}
+
+.photo-card::before,
+.service-card::before,
+.feature-card::before,
+.card::before,
+[class*="image-wrap"]::before,
+[class*="photo-wrap"]::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  background:linear-gradient(135deg,rgba(255,255,255,.24),transparent 28%,rgba(56,189,248,.18) 100%);
+  opacity:0;
+  transition:opacity .55s ease;
+}
+
+.photo-card:hover::before,
+.service-card:hover::before,
+.feature-card:hover::before,
+.card:hover::before,
+[class*="image-wrap"]:hover::before,
+[class*="photo-wrap"]:hover::before{
+  opacity:1;
+}
+
+/* Cards: subtle staggered rise */
+.ml-animate-card{
+  opacity:0;
+  transform:translateY(30px);
+}
+.ml-animate-card.ml-visible{
+  opacity:1;
+  transform:translateY(0);
+  transition:opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1);
+}
+
+.package-card,
+.service-card,
+.feature-card,
+.benefit-card,
+.stat-item,
+.card{
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+.package-card:hover,
+.service-card:hover,
+.feature-card:hover,
+.benefit-card:hover,
+.card:hover{
+  transform:translateY(-9px);
+  box-shadow:var(--ml-glow)!important;
+}
+
+/* Premium hero polish */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(circle at 18% 22%,rgba(56,189,248,.22),transparent 28%),linear-gradient(120deg,rgba(0,0,0,.14),transparent 45%);
+  animation:mlGlowPulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes mlGlowPulse{
+  from{opacity:.45;}
+  to{opacity:.9;}
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
+  .ml-animate-heading,.ml-animate-photo,.ml-animate-card{opacity:1!important;transform:none!important;filter:none!important;}
+}
+
+@media(max-width:600px){
+  main h1,.hero h1{letter-spacing:-.045em;}
+  main h2::after,.section-title::after,.section-heading h2::after,.center-heading h2::after{width:68px;height:4px;margin-top:10px;}
+}
