@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "description": "Mozalife Internet Solutions - Kisii",
   "scripts": {
-    "build": "mkdir -p public && cp login.html public/index.html && cp -r images public/images"
+    "build": "mkdir -p public && cp login.html public/index.html && cp -r images public/images && cp enhancements.css public/enhancements.css && cp enhancements.js public/enhancements.js && sed -i 's#</head>#<link rel=\"stylesheet\" href=\"enhancements.css\"></head>#' public/index.html && sed -i 's#</body>#<script src=\"enhancements.js\"></script></body>#' public/index.html"
   }
 }
